@@ -3,16 +3,16 @@ from django.forms import Form, fields
 from directory_forms_api_client import backends
 
 
-class DirectoryFormsEmailBackendMixin:
-    backend_class = backends.DirectoryFormsBackendEmail
+class EmailBackendMixin:
+    backend_class = backends.EmailBackend
 
     def save(self, submission_recipients, *args, **kwargs):
         backend = self.backend_class(recipients=submission_recipients)
         return backend.save(self.cleaned_data)
 
 
-class DirectoryFormsZendeskBackendMixin:
-    backend_class = backends.DirectoryFormsBackendZendesk
+class ZendeskBackendMixin:
+    backend_class = backends.ZendeskBackend
 
     requester_email = fields.EmailField()
 
@@ -21,9 +21,9 @@ class DirectoryFormsZendeskBackendMixin:
         return backend.save(self.cleaned_data)
 
 
-class DirectoryFormsEmailBaseForm(DirectoryFormsEmailBackendMixin, Form):
+class EmailAPIForm(EmailBackendMixin, Form):
     pass
 
 
-class DirectoryFormsZendeskBaseForm(DirectoryFormsZendeskBackendMixin, Form):
+class ZendeskAPIForm(ZendeskBackendMixin, Form):
     pass

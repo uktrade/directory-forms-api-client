@@ -35,7 +35,7 @@ Once that is done the forms can be used.
 from directory_forms_api_client import forms
 
 
-class ZendeskForm(forms.DirectoryFormsZendeskBaseForm):
+class ZendeskForm(forms.ZendeskAPIForm):
     # note that the base form provides `requester_email` email field
     title = fields.CharField()
 
@@ -55,7 +55,7 @@ form.save()
 ```python
 from directory_forms_api_client import forms
 
-class EmailForm(forms.DirectoryFormsZendeskBaseForm):
+class EmailForm(forms.ZendeskAPIForm):
     title = fields.CharField()
     email = fields.EmailField()
 
@@ -70,7 +70,7 @@ form.save(submission_recipients=[form.cleaned_data['email']])
 ```python
 from directory_forms_api_client import forms
 
-class EmailForm(forms.DirectoryFormsEmailBaseForm):
+class EmailForm(forms.EmailAPIForm):
     title = fields.CharField()
 
 form = TestForm(data={'title': 'Example'})
@@ -84,6 +84,8 @@ form.save(submission_recipients=[settings.FEEDBACK_EMAIL_RECIPIENTS])
 
     $ git clone https://github.com/uktrade/directory-forms-api-client
     $ cd directory-forms-api-client
+    # [create your virtual environment and activate it]
+    $ pip install -e . # install the requirements defined in setup.py
 
 ### Testing
 

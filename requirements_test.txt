@@ -1,5 +1,4 @@
--r requirements.txt
-
+-e . # install the requirements defined in setup.py
 django>=1.9,<2.0a1
 requests>=2.18.4,<3.0.0
 pytest==3.0.2

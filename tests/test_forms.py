@@ -9,12 +9,22 @@ from directory_forms_api_client import backends, forms
 
 @pytest.fixture
 def mock_backend_class():
-    return mock.Mock(spec=backends.DirectoryFormsBackendBase)
+    return mock.Mock(spec=backends.AbstractBackend)
+
+
+def test_email_backend_form():
+    expected_class = backends.EmailBackend
+    assert forms.EmailBackendMixin.backend_class is expected_class
+
+
+def test_zendesk_backend_form():
+    expected_class = backends.ZendeskBackend
+    assert forms.ZendeskBackendMixin.backend_class is expected_class
 
 
 @pytest.mark.parametrize('classes', (
-    [forms.DirectoryFormsEmailBackendMixin, Form],
-    [forms.DirectoryFormsEmailBaseForm]
+    [forms.EmailBackendMixin, Form],
+    [forms.EmailAPIForm]
 ))
 def test_email_backend_mixin_user_submitted_email(
     classes, mock_backend_class
@@ -39,8 +49,8 @@ def test_email_backend_mixin_user_submitted_email(
 
 
 @pytest.mark.parametrize('classes', (
-    [forms.DirectoryFormsEmailBackendMixin, Form],
-    [forms.DirectoryFormsEmailBaseForm]
+    [forms.EmailBackendMixin, Form],
+    [forms.EmailAPIForm]
 ))
 def test_email_backend_mixin_environment_defined_email(
     classes, mock_backend_class
@@ -64,8 +74,8 @@ def test_email_backend_mixin_environment_defined_email(
 
 
 @pytest.mark.parametrize('classes', (
-    [forms.DirectoryFormsZendeskBackendMixin, Form],
-    [forms.DirectoryFormsZendeskBaseForm]
+    [forms.ZendeskBackendMixin, Form],
+    [forms.ZendeskAPIForm]
 ))
 def test_zendesk_backend_mixin(classes, mock_backend_class):
 

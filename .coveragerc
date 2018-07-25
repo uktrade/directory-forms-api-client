@@ -1,2 +1,2 @@
 [run]
-omit = .venv/*,setup.py
+omit = .venv/*,setup.py,directory_forms_api_client/version.py
