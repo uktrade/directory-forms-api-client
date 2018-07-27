@@ -3,7 +3,7 @@ import abc
 from directory_forms_api_client.client import forms_api_client
 
 
-class DirectoryFormsBackendBase(abc.ABC):
+class AbstractBackend(abc.ABC):
 
     def __init__(self, client=forms_api_client, *args, **kwargs):
         self.client = client
@@ -18,7 +18,7 @@ class DirectoryFormsBackendBase(abc.ABC):
         return self.client.submit_generic(serialized_data)
 
 
-class DirectoryFormsBackendEmail(DirectoryFormsBackendBase):
+class EmailBackend(AbstractBackend):
 
     BACKEND_NAME = 'email'
 
@@ -36,7 +36,7 @@ class DirectoryFormsBackendEmail(DirectoryFormsBackendBase):
         }
 
 
-class DirectoryFormsBackendZendesk(DirectoryFormsBackendBase):
+class ZendeskBackend(AbstractBackend):
 
     BACKEND_NAME = 'zendesk'
 

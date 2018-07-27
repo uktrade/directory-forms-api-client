@@ -4,8 +4,8 @@ from directory_forms_api_client import backends, client
 
 
 def test_email_backend_mixin_backend_class():
-    mock_client = mock.Mock(spec_set=client.DirectoryFormsAPIClient)
-    backend = backends.DirectoryFormsBackendEmail(
+    mock_client = mock.Mock(spec_set=client.APIFormsClient)
+    backend = backends.EmailBackend(
         recipients=['test@example.com'],
         client=mock_client,
     )
@@ -24,8 +24,8 @@ def test_email_backend_mixin_backend_class():
 
 def test_zendesk_backend_mixin_backend_class():
 
-    mock_client = mock.Mock(spec_set=client.DirectoryFormsAPIClient)
-    backend = backends.DirectoryFormsBackendZendesk(client=mock_client)
+    mock_client = mock.Mock(spec_set=client.APIFormsClient)
+    backend = backends.ZendeskBackend(client=mock_client)
 
     backend.save({'requester_email': 'a@foo.com', 'field_two': 'value two'})
 

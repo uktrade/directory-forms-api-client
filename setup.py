@@ -1,9 +1,7 @@
 """
-Export Directory API client
+Directory Forms API client
 """
 import ast
-import pip.download
-from pip.req import parse_requirements
 import re
 from setuptools import setup, find_packages
 
@@ -17,24 +15,19 @@ def get_version():
         ))
 
 
-def get_requirements():
-    return [str(r.req) for r in list(parse_requirements(
-        'requirements.txt',
-        session=pip.download.PipSession()
-    ))]
-
-
 setup(
     name='directory_forms_api_client',
     version=get_version(),
     url='https://github.com/uktrade/directory-forms-api-client',
     license='MIT',
     author='Department for International Trade',
-    description='Python API client for Export Directory.',
+    description='Python API client for Directory forms .',
     packages=find_packages(exclude=["tests.*", "tests"]),
     long_description=open('README.md').read(),
     include_package_data=True,
-    install_requires=get_requirements(),
+    install_requires=[
+        'directory_client_core<1.0.0',
+    ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
