@@ -3,6 +3,7 @@
 [![code-climate-image]][code-climate]
 [![circle-ci-image]][circle-ci]
 [![codecov-image]][codecov]
+[![pypi-image]][pypi]
 
 **Directory forms API client for headless forms.**
 
@@ -114,3 +115,6 @@ Then run the following command:
 
 [codecov-image]: https://codecov.io/gh/uktrade/directory-forms-api-client/branch/master/graph/badge.svg
 [codecov]: https://codecov.io/gh/uktrade/directory-forms-api-client
+
+[pypi-image]: https://badge.fury.io/py/directory-forms-api-client.svg
+[pypi]: https://badge.fury.io/py/directory-forms-api-client
