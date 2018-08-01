@@ -22,11 +22,12 @@ pip install directory_forms_api_client
 
 The api client must be passed into each form instance, so first set the the client settings:
 
-| Setting                      | Notes                                                       |
-| ---------------------------- | ----------------------------------------------------------- |
-| DIRECTORY_FORMS_API_BASE_URL |                                                             |
-| DIRECTORY_FORMS_API_API_KEY  | Unique to client. Retrieved during the on-boarding process. |
-
+| Setting                         | Notes                                                       |
+| ------------------------------- | ----------------------------------------------------------- |
+| DIRECTORY_FORMS_API_BASE_URL    |                                                             |
+| DIRECTORY_FORMS_API_API_KEY     | Unique to client. Retrieved during the on-boarding process. |
+| DIRECTORY_FORMS_SENDER_ID       | Unique to client. Retrieved during the on-boarding process. |
+| DIRECTORY_FORMS_DEFAULT_TIMEOUT |                                                             |
 
 Once that is done the forms can be used.
 

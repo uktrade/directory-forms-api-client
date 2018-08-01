@@ -26,7 +26,7 @@ setup(
     long_description=open('README.md').read(),
     include_package_data=True,
     install_requires=[
-        'directory_client_core<1.0.0',
+        'directory_client_core<5.0.0',
     ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
