@@ -5,6 +5,6 @@ def pytest_configure():
         USE_I18N=False,
         DIRECTORY_FORMS_API_BASE_URL='https://example.com',
         DIRECTORY_FORMS_API_API_KEY='debug',
-        DIRECTORY_FORMS_SENDER_ID='test-id',
+        DIRECTORY_FORMS_API_SENDER_ID='test-id',
         DIRECTORY_FORMS_DEFAULT_TIMEOUT=5,
     )
