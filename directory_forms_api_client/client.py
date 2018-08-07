@@ -23,5 +23,5 @@ forms_api_client = APIFormsClient(
     base_url=settings.DIRECTORY_FORMS_API_BASE_URL,
     api_key=settings.DIRECTORY_FORMS_API_API_KEY,
     sender_id=settings.DIRECTORY_FORMS_API_SENDER_ID,
-    timeout=settings.DIRECTORY_FORMS_DEFAULT_TIMEOUT,
+    timeout=settings.DIRECTORY_FORMS_API_DEFAULT_TIMEOUT,
 )
