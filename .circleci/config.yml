@@ -10,21 +10,11 @@ jobs:
             python3 -m venv .venv
             . .venv/bin/activate
             make test_requirements
-      - run:
-          command: |
-            . .venv/bin/activate
             make test
-  deploy_to_dev:
+  publish_to_pypi:
     docker:
       - image: circleci/python:3.5.5
     steps:
-      - setup_remote_docker
-      - run:
-          name: Install Docker Compose
-          command: |
-            curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-            chmod +x ~/docker-compose
-            sudo mv ~/docker-compose /usr/local/bin/docker-compose
       - checkout
       - run:
           command: |
@@ -35,10 +25,10 @@ jobs:
 
 workflows:
   version: 2
-  test_and_deploy_to_dev:
+  test_and_publish_to_pypi:
     jobs:
       - test
-      - deploy_to_dev:
+      - publish_to_pypi:
           requires:
             - test
           filters:
