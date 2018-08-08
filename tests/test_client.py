@@ -12,7 +12,7 @@ class APIFormsClientTest(TestCase):
             base_url='https://forms.com',
             api_key='test',
             sender_id='test',
-            timeout=4
+            timeout=4,
         )
 
     @stub_request('https://forms.com/api/healthcheck/ping/', 'get')

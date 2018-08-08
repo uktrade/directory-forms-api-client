@@ -1,4 +1,4 @@
-from django.forms import Form, fields
+from django.forms import Form
 
 from directory_forms_api_client import actions
 
@@ -36,10 +36,12 @@ class EmailActionMixin:
 class ZendeskActionMixin:
     action_class = actions.ZendeskAction
 
-    requester_email = fields.EmailField()
-
-    def save(self, *args, **kwargs):
-        action = self.action_class()
+    def save(self, email_address, full_name, subject, *args, **kwargs):
+        action = self.action_class(
+            email_address=email_address,
+            full_name=full_name,
+            subject=subject,
+        )
         return action.save(self.serialized_data)
 
     @property
