@@ -1,5 +1,7 @@
 import abc
 
+from django.conf import settings
+
 from directory_forms_api_client.client import forms_api_client
 
 
@@ -9,10 +11,22 @@ class AbstractAction(abc.ABC):
         self.client = client
         super().__init__(*args, **kwargs)
 
+    @property
+    @abc.abstractmethod
+    def name(self):
+        return ''
+
     def serialize_data(self, data):
         return {
             'data': data,
-            'meta': self.meta
+            'meta': self.serialize_meta()
+        }
+
+    def serialize_meta(self):
+        return {
+            'action_name': self.name,
+            'namespace': settings.DIRECTORY_FORMS_API_NAMESPACE,
+            **self.meta,
         }
 
     def save(self, data):
@@ -21,12 +35,12 @@ class AbstractAction(abc.ABC):
 
 
 class EmailAction(AbstractAction):
+    name = 'email'
 
     def __init__(
         self, recipients, subject, reply_to, from_email, *args, **kwargs
     ):
         self.meta = {
-            'action_name': 'email',
             'recipients': recipients,
             'subject': subject,
             'reply_to': reply_to,
@@ -36,10 +50,10 @@ class EmailAction(AbstractAction):
 
 
 class ZendeskAction(AbstractAction):
+    name = 'zendesk'
 
     def __init__(self, subject, full_name, email_address, *args, **kwargs):
         self.meta = {
-            'action_name': 'zendesk',
             'full_name': full_name,
             'email_address': email_address,
             'subject': subject,

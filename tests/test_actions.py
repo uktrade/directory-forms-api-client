@@ -3,7 +3,7 @@ from unittest import mock
 from directory_forms_api_client import actions, client
 
 
-def test_email_action_mixin_action_class():
+def test_email_action_mixin_action_class(settings):
     mock_client = mock.Mock(spec_set=client.APIFormsClient)
     action = actions.EmailAction(
         recipients=['test@example.com'],
@@ -24,11 +24,12 @@ def test_email_action_mixin_action_class():
             'recipients': ['test@example.com'],
             'reply_to': ['reply_to@example.com'],
             'subject': 'a subject',
+            'namespace': settings.DIRECTORY_FORMS_API_NAMESPACE
         }
     })
 
 
-def test_zendesk_action_mixin_action_class():
+def test_zendesk_action_mixin_action_class(settings):
 
     mock_client = mock.Mock(spec_set=client.APIFormsClient)
     action = actions.ZendeskAction(
@@ -48,5 +49,6 @@ def test_zendesk_action_mixin_action_class():
             'subject': 'a subject',
             'full_name': 'jim example',
             'email_address': 'jim@example.com',
+            'namespace': settings.DIRECTORY_FORMS_API_NAMESPACE
         }
     })
