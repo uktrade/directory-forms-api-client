@@ -37,14 +37,11 @@ class AbstractAction(abc.ABC):
 class EmailAction(AbstractAction):
     name = 'email'
 
-    def __init__(
-        self, recipients, subject, reply_to, from_email, *args, **kwargs
-    ):
+    def __init__(self, recipients, subject, reply_to, *args, **kwargs):
         self.meta = {
             'recipients': recipients,
             'subject': subject,
             'reply_to': reply_to,
-            'from_email': from_email,
         }
         super().__init__(*args, **kwargs)
 

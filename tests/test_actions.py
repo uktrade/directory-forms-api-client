@@ -10,7 +10,6 @@ def test_email_action_mixin_action_class(settings):
         client=mock_client,
         subject='a subject',
         reply_to=['reply_to@example.com'],
-        from_email='from_email@example.com',
     )
 
     action.save({'field_one': 'value one', 'field_two': 'value two'})
@@ -20,7 +19,6 @@ def test_email_action_mixin_action_class(settings):
         'data': {'field_one': 'value one', 'field_two': 'value two'},
         'meta': {
             'action_name': 'email',
-            'from_email': 'from_email@example.com',
             'recipients': ['test@example.com'],
             'reply_to': ['reply_to@example.com'],
             'subject': 'a subject',

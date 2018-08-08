@@ -6,14 +6,11 @@ from directory_forms_api_client import actions
 class EmailActionMixin:
     action_class = actions.EmailAction
 
-    def save(
-        self, recipients, subject, reply_to, from_email, *args, **kwargs
-    ):
+    def save(self, recipients, subject, reply_to, *args, **kwargs):
         action = self.action_class(
             recipients=recipients,
             subject=subject,
             reply_to=reply_to,
-            from_email=from_email,
         )
         return action.save(self.serialized_data)
 
