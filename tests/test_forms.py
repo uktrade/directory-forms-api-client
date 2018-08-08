@@ -50,7 +50,6 @@ def test_email_action_mixin_user_submitted_email(classes, mock_action_class):
         recipients=[form.cleaned_data['email']],
         subject='a subject',
         reply_to=['reply_to@example.com'],
-        from_email='from_email@example.com',
     )
 
     assert mock_action_class.call_count == 1
@@ -58,7 +57,6 @@ def test_email_action_mixin_user_submitted_email(classes, mock_action_class):
         recipients=['a@foo.com'],
         subject='a subject',
         reply_to=['reply_to@example.com'],
-        from_email='from_email@example.com',
     )
     assert mock_action_class().save.call_count == 1
     assert mock_action_class().save.call_args == mock.call(
@@ -95,7 +93,6 @@ def test_email_action_mixin_environment_defined_email(
         recipients=['a@bar.com'],
         subject='a subject',
         reply_to=['reply_to@example.com'],
-        from_email='from_email@example.com',
     )
 
     assert mock_action_class.call_count == 1
@@ -103,7 +100,6 @@ def test_email_action_mixin_environment_defined_email(
         recipients=['a@bar.com'],
         subject='a subject',
         reply_to=['reply_to@example.com'],
-        from_email='from_email@example.com',
     )
     assert mock_action_class().save.call_count == 1
     assert mock_action_class().save.call_args == mock.call(
