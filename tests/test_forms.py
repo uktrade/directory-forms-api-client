@@ -122,16 +122,28 @@ def test_zendesk_action_mixin(classes, mock_action_class):
 
         title = fields.CharField()
 
-    form = TestForm(
-        data={'title': 'Example', 'requester_email': 'three@example.com'}
-    )
+    data = {
+        'title': 'Example',
+        'email_address': 'three@example.com',
+        'full_name': 'Jim Example',
+        'subject': 'hello there',
+    }
+    form = TestForm(data=data)
 
     assert form.is_valid()
 
-    form.save()
+    form.save(
+        full_name=data['full_name'],
+        email_address=data['email_address'],
+        subject=data['subject'],
+    )
 
     assert mock_action_class.call_count == 1
-    assert mock_action_class.call_args == mock.call()
+    assert mock_action_class.call_args == mock.call(
+        full_name=data['full_name'],
+        email_address=data['email_address'],
+        subject=data['subject'],
+    )
     assert mock_action_class().save.call_count == 1
     assert mock_action_class().save.call_args == mock.call(form.cleaned_data)
 

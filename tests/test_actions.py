@@ -31,12 +31,22 @@ def test_email_action_mixin_action_class():
 def test_zendesk_action_mixin_action_class():
 
     mock_client = mock.Mock(spec_set=client.APIFormsClient)
-    action = actions.ZendeskAction(client=mock_client)
+    action = actions.ZendeskAction(
+        client=mock_client,
+        subject='a subject',
+        full_name='jim example',
+        email_address='jim@example.com',
+    )
 
     action.save({'requester_email': 'a@foo.com', 'field_two': 'value two'})
 
     assert mock_client.submit_generic.call_count == 1
     assert mock_client.submit_generic.call_args == mock.call({
         'data': {'requester_email': 'a@foo.com', 'field_two': 'value two'},
-        'meta': {'action_name': 'zendesk'}
+        'meta': {
+            'action_name': 'zendesk',
+            'subject': 'a subject',
+            'full_name': 'jim example',
+            'email_address': 'jim@example.com',
+        }
     })

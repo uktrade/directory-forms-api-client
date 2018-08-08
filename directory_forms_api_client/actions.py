@@ -9,9 +9,11 @@ class AbstractAction(abc.ABC):
         self.client = client
         super().__init__(*args, **kwargs)
 
-    @abc.abstractmethod
     def serialize_data(self, data):
-        return {}
+        return {
+            'data': data,
+            'meta': self.meta
+        }
 
     def save(self, data):
         serialized_data = self.serialize_data(data)
@@ -32,19 +34,14 @@ class EmailAction(AbstractAction):
         }
         super().__init__(*args, **kwargs)
 
-    def serialize_data(self, data):
-        return {
-            'data': data,
-            'meta': self.meta
-        }
-
 
 class ZendeskAction(AbstractAction):
 
-    def serialize_data(self, data):
-        return {
-            'data': data,
-            'meta': {
-                'action_name': 'zendesk',
-            }
+    def __init__(self, subject, full_name, email_address, *args, **kwargs):
+        self.meta = {
+            'action_name': 'zendesk',
+            'full_name': full_name,
+            'email_address': email_address,
+            'subject': subject,
         }
+        super().__init__(*args, **kwargs)
