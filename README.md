@@ -4,7 +4,6 @@
 [![circle-ci-image]][circle-ci]
 [![codecov-image]][codecov]
 [![pypi-image]][pypi]
-[![snyk-image]][snyk]
 
 **Directory forms API client for headless forms.**
 
@@ -121,6 +120,3 @@ Then run the following command:
 
 [pypi-image]: https://badge.fury.io/py/directory-forms-api-client.svg
 [pypi]: https://badge.fury.io/py/directory-forms-api-client
-
-[snyk-image]: https://snyk.io/test/github/uktrade/directory-forms-api-client/badge.svg
-[snyk]: https://snyk.io/test/github/uktrade/directory-forms-api-client
