@@ -27,7 +27,6 @@ The api client must be passed into each form instance, so first set the the clie
 | DIRECTORY_FORMS_API_API_KEY     | Unique to client. Retrieved during the on-boarding process. |
 | DIRECTORY_FORMS_API_SENDER_ID   | Unique to client. Retrieved during the on-boarding process. |
 | DIRECTORY_FORMS_DEFAULT_TIMEOUT |                                                             |
-| DIRECTORY_FORMS_API_NAMESPACE   | Name of service using the client. For filtering in zendesk. |
 
 Once that is done the forms can be used.
 

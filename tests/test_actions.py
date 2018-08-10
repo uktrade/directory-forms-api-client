@@ -22,7 +22,6 @@ def test_email_action_mixin_action_class(settings):
             'recipients': ['test@example.com'],
             'reply_to': ['reply_to@example.com'],
             'subject': 'a subject',
-            'namespace': settings.DIRECTORY_FORMS_API_NAMESPACE
         }
     })
 
@@ -47,6 +46,5 @@ def test_zendesk_action_mixin_action_class(settings):
             'subject': 'a subject',
             'full_name': 'jim example',
             'email_address': 'jim@example.com',
-            'namespace': settings.DIRECTORY_FORMS_API_NAMESPACE
         }
     })

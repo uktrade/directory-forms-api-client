@@ -1,7 +1,5 @@
 import abc
 
-from django.conf import settings
-
 from directory_forms_api_client.client import forms_api_client
 
 
@@ -25,7 +23,6 @@ class AbstractAction(abc.ABC):
     def serialize_meta(self):
         return {
             'action_name': self.name,
-            'namespace': settings.DIRECTORY_FORMS_API_NAMESPACE,
             **self.meta,
         }
 
