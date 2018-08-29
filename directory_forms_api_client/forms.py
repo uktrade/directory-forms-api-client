@@ -46,9 +46,28 @@ class ZendeskActionMixin:
         return self.cleaned_data
 
 
+class GovNotifyActionMixin:
+    action_class = actions.GovNotifyAction
+
+    def save(self, template_id, email_address, *args, **kwargs):
+        action = self.action_class(
+            template_id=template_id,
+            email_address=email_address,
+        )
+        return action.save(self.serialized_data)
+
+    @property
+    def serialized_data(self):
+        return self.cleaned_data
+
+
 class EmailAPIForm(EmailActionMixin, Form):
     pass
 
 
 class ZendeskAPIForm(ZendeskActionMixin, Form):
+    pass
+
+
+class GovNotifyAPIForm(GovNotifyActionMixin, Form):
     pass

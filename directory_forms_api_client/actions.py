@@ -53,3 +53,14 @@ class ZendeskAction(AbstractAction):
             'subject': subject,
         }
         super().__init__(*args, **kwargs)
+
+
+class GovNotifyAction(AbstractAction):
+    name = 'gov-notify'
+
+    def __init__(self, template_id, email_address, *args, **kwargs):
+        self.meta = {
+            'template_id': template_id,
+            'email_address': email_address
+        }
+        super().__init__(*args, **kwargs)
