@@ -148,7 +148,7 @@ def test_zendesk_action_mixin(classes, mock_action_class):
     [forms.EmailActionMixin, Form],
     [forms.EmailAPIForm]
 ))
-def test_email_action_mixin_not_implemented(classes):
+def test_email_action_mixin_not_implemented(classes, mock_action_class):
 
     class TestForm(*classes):
         action_class = mock_action_class
@@ -162,3 +162,37 @@ def test_email_action_mixin_not_implemented(classes):
 
     with pytest.raises(NotImplementedError):
         form.html_body()
+
+
+@pytest.mark.parametrize('classes', (
+    [forms.GovNotifyActionMixin, Form],
+    [forms.GovNotifyAPIForm]
+))
+def test_gov_notify_action(classes, mock_action_class):
+
+    class TestForm(*classes):
+        action_class = mock_action_class
+
+        title = fields.CharField()
+
+    data = {
+        'email_address': 'three@example.com',
+        'template_id': '123456',
+        'title': 'some title',
+    }
+    form = TestForm(data)
+
+    assert form.is_valid()
+
+    form.save(
+        template_id=data['template_id'],
+        email_address=data['email_address'],
+    )
+
+    assert mock_action_class.call_count == 1
+    assert mock_action_class.call_args == mock.call(
+        template_id=data['template_id'],
+        email_address=data['email_address'],
+    )
+    assert mock_action_class().save.call_count == 1
+    assert mock_action_class().save.call_args == mock.call(form.cleaned_data)
