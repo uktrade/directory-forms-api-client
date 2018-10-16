@@ -139,6 +139,7 @@ def test_zendesk_action_mixin(classes, mock_action_class):
         full_name=data['full_name'],
         email_address=data['email_address'],
         subject=data['subject'],
+        subdomain=None,
     )
     assert mock_action_class().save.call_count == 1
     assert mock_action_class().save.call_args == mock.call(form.cleaned_data)
