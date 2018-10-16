@@ -24,9 +24,10 @@ setup(
     description='Python API client for Directory forms .',
     packages=find_packages(exclude=["tests.*", "tests"]),
     long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     include_package_data=True,
     install_requires=[
-        'directory_client_core>=4.0.1,<5.0.0',
+        'directory_client_core>=4.0.2,<5.0.0',
     ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',

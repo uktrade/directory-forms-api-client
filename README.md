@@ -43,12 +43,31 @@ class ZendeskForm(forms.ZendeskAPIForm):
 
 
 form = ZendeskForm(data={
-    'title': 'example',
-    'requester_email': 'three@example.com'
+    'name': 'Example Person',
+    'email': 'three@example.com'
 })
 assert form.is_valid()
-form.save()
+form.save(
+    email_address=form.cleaned_data['email'],
+    full_name='Example Person',
+    subject='Bo in the house',
+)
 ```
+
+#### Different subdomain
+
+The default behaviour of Forms API is to use the default configured zendesk subdomain when creating the tickets. To use a different subdomain, provide `subdomain`:
+
+```python
+form.save(
+    email_address=form.cleaned_data['email'],
+    full_name='Example Person',
+    subject='Some ticket subject',
+    subdomain='some-other-subdomain',
+)
+```
+
+Note that Forms API must first be configured to expect the provided subdomain.
 
 ### Send as email
 
@@ -64,7 +83,11 @@ class EmailForm(forms.ZendeskAPIForm):
 form = TestForm(data={'title': 'Example', 'email': 'a@foo.com'})
 
 assert form.is_valid()
-form.save(submission_recipients=[form.cleaned_data['email']])
+form.save(
+    recipients=[form.cleaned_data['email']],
+    subject='Some email subject',
+    reply_to=['reply@example.com']
+)
 
 ```
 
@@ -80,6 +103,24 @@ form = TestForm(data={'title': 'Example'})
 assert form.is_valid()
 form.save(submission_recipients=[settings.FEEDBACK_EMAIL_RECIPIENTS])
 
+```
+
+### Send via gov.uk Notify
+
+```python
+from directory_forms_api_client import forms
+
+class GovNotifyForm(forms.GovNotifyAPIForm):
+    title = fields.CharField()
+    email = fields.EmailField()
+
+form = TestForm(data={'title': 'Example', 'email': 'a@foo.com'})
+
+assert form.is_valid()
+form.save(
+    template_id='some-template-id-from-gov-notify',
+    email_address=form.cleaned_data['email'],
+)
 ```
 
 ## Development

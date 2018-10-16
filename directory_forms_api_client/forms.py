@@ -33,11 +33,15 @@ class EmailActionMixin:
 class ZendeskActionMixin:
     action_class = actions.ZendeskAction
 
-    def save(self, email_address, full_name, subject, *args, **kwargs):
+    def save(
+        self, email_address, full_name, subject, subdomain=None, *args,
+        **kwargs
+    ):
         action = self.action_class(
             email_address=email_address,
             full_name=full_name,
             subject=subject,
+            subdomain=subdomain
         )
         return action.save(self.serialized_data)
 
