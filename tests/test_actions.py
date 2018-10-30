@@ -83,6 +83,30 @@ def test_gov_notify_action_mixin_action_class(settings):
         client=mock_client,
         template_id='123456',
         email_address='jim@example.com',
+        email_reply_to_id='123',
+    )
+
+    action.save({'name': 'hello'})
+
+    assert mock_client.submit_generic.call_count == 1
+    assert mock_client.submit_generic.call_args == mock.call({
+        'data': {'name': 'hello'},
+        'meta': {
+            'action_name': 'gov-notify',
+            'template_id': '123456',
+            'email_address': 'jim@example.com',
+            'email_reply_to_id': '123',
+        }
+    })
+
+
+def test_gov_notify_action_mixin_action_class_no_reply_id(settings):
+
+    mock_client = mock.Mock(spec_set=client.APIFormsClient)
+    action = actions.GovNotifyAction(
+        client=mock_client,
+        template_id='123456',
+        email_address='jim@example.com',
     )
 
     action.save({'name': 'hello'})

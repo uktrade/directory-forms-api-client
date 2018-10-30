@@ -64,9 +64,14 @@ class ZendeskAction(AbstractAction):
 class GovNotifyAction(AbstractAction):
     name = 'gov-notify'
 
-    def __init__(self, template_id, email_address, *args, **kwargs):
+    def __init__(
+        self, template_id, email_address, email_reply_to_id=None,
+        *args, **kwargs
+    ):
         self.meta = {
             'template_id': template_id,
-            'email_address': email_address
+            'email_address': email_address,
         }
+        if email_reply_to_id:
+            self.meta['email_reply_to_id'] = email_reply_to_id
         super().__init__(*args, **kwargs)
