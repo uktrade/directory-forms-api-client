@@ -53,10 +53,14 @@ class ZendeskActionMixin:
 class GovNotifyActionMixin:
     action_class = actions.GovNotifyAction
 
-    def save(self, template_id, email_address, *args, **kwargs):
+    def save(
+        self, template_id, email_address, email_reply_to_id=None,
+        *args, **kwargs
+    ):
         action = self.action_class(
             template_id=template_id,
             email_address=email_address,
+            email_reply_to_id=email_reply_to_id
         )
         return action.save(self.serialized_data)
 
