@@ -7,7 +7,6 @@ class AbstractAction(abc.ABC):
 
     def __init__(self, client=forms_api_client, *args, **kwargs):
         self.client = client
-        super().__init__(*args, **kwargs)
 
     @property
     @abc.abstractmethod
