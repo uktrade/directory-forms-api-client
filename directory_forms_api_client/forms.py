@@ -69,6 +69,18 @@ class GovNotifyActionMixin:
         return self.cleaned_data
 
 
+class PardotActionMixin:
+    action_class = actions.PardotAction
+
+    def save(self, pardot_url, *args, **kwargs):
+        action = self.action_class(pardot_url=pardot_url,)
+        return action.save(self.serialized_data)
+
+    @property
+    def serialized_data(self):
+        return self.cleaned_data
+
+
 class EmailAPIForm(EmailActionMixin, Form):
     pass
 
@@ -78,4 +90,8 @@ class ZendeskAPIForm(ZendeskActionMixin, Form):
 
 
 class GovNotifyAPIForm(GovNotifyActionMixin, Form):
+    pass
+
+
+class PardotAPIForm(PardotActionMixin, Form):
     pass

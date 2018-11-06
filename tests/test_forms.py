@@ -234,3 +234,33 @@ def test_gov_notify_action_no_reply_to_id(classes, mock_action_class):
     )
     assert mock_action_class().save.call_count == 1
     assert mock_action_class().save.call_args == mock.call(form.cleaned_data)
+
+
+@pytest.mark.parametrize('classes', (
+    [forms.PardotActionMixin, Form],
+    [forms.PardotAPIForm]
+))
+def test_pardot_action(classes, mock_action_class):
+
+    class TestForm(*classes):
+        action_class = mock_action_class
+
+        title = fields.CharField()
+
+    data = {
+        'email_address': 'three@example.com',
+        'template_id': '123456',
+        'title': 'some title',
+    }
+    form = TestForm(data)
+
+    assert form.is_valid()
+
+    form.save(pardot_url='http://www.example.com/some/submission/path/')
+
+    assert mock_action_class.call_count == 1
+    assert mock_action_class.call_args == mock.call(
+        pardot_url='http://www.example.com/some/submission/path/'
+    )
+    assert mock_action_class().save.call_count == 1
+    assert mock_action_class().save.call_args == mock.call(form.cleaned_data)
