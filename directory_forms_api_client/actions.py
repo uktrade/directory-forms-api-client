@@ -74,3 +74,13 @@ class GovNotifyAction(AbstractAction):
         if email_reply_to_id:
             self.meta['email_reply_to_id'] = email_reply_to_id
         super().__init__(*args, **kwargs)
+
+
+class PardotAction(AbstractAction):
+    name = 'pardot'
+
+    def __init__(self, pardot_url, *args, **kwargs):
+        self.meta = {
+            'pardot_url': pardot_url,
+        }
+        super().__init__(*args, **kwargs)

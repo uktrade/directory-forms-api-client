@@ -120,3 +120,23 @@ def test_gov_notify_action_mixin_action_class_no_reply_id(settings):
             'email_address': 'jim@example.com',
         }
     })
+
+
+def test_pardot_action_mixin_action_class(settings):
+
+    mock_client = mock.Mock(spec_set=client.APIFormsClient)
+    action = actions.PardotAction(
+        client=mock_client,
+        pardot_url='http://www.example.com/some/submission/path/'
+    )
+
+    action.save({'name': 'hello'})
+
+    assert mock_client.submit_generic.call_count == 1
+    assert mock_client.submit_generic.call_args == mock.call({
+        'data': {'name': 'hello'},
+        'meta': {
+            'action_name': 'pardot',
+            'pardot_url': 'http://www.example.com/some/submission/path/',
+        }
+    })
