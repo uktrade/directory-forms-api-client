@@ -46,13 +46,14 @@ class ZendeskAction(AbstractAction):
     name = 'zendesk'
 
     def __init__(
-        self, subject, full_name, email_address, subdomain=None, *args,
-        **kwargs
+        self, subject, full_name, email_address, service_name, subdomain=None,
+        *args, **kwargs
     ):
         self.meta = {
             'full_name': full_name,
             'email_address': email_address,
             'subject': subject,
+            'service_name': service_name,
         }
         # if empty Forms API will use the default configured zendesk subdomain
         if subdomain:
