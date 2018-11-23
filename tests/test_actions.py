@@ -34,6 +34,7 @@ def test_zendesk_action_mixin_action_class(settings):
         subject='a subject',
         full_name='jim example',
         email_address='jim@example.com',
+        service_name='some service',
     )
 
     action.save({'requester_email': 'a@foo.com', 'field_two': 'value two'})
@@ -46,6 +47,7 @@ def test_zendesk_action_mixin_action_class(settings):
             'subject': 'a subject',
             'full_name': 'jim example',
             'email_address': 'jim@example.com',
+            'service_name': 'some service',
         }
     })
 
@@ -58,6 +60,7 @@ def test_zendesk_action_mixin_action_class_subdomain(settings):
         subject='a subject',
         full_name='jim example',
         email_address='jim@example.com',
+        service_name='some service',
         subdomain='some-sobdomain',
     )
 
@@ -72,6 +75,7 @@ def test_zendesk_action_mixin_action_class_subdomain(settings):
             'full_name': 'jim example',
             'email_address': 'jim@example.com',
             'subdomain': 'some-sobdomain',
+            'service_name': 'some service',
         }
     })
 

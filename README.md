@@ -51,6 +51,7 @@ form.save(
     email_address=form.cleaned_data['email'],
     full_name='Example Person',
     subject='Bo in the house',
+    service_name='Foo Bar',
 )
 ```
 
@@ -86,7 +87,8 @@ assert form.is_valid()
 form.save(
     recipients=[form.cleaned_data['email']],
     subject='Some email subject',
-    reply_to=['reply@example.com']
+    reply_to=['reply@example.com'],
+    service_name='Foo Bar',
 )
 
 ```
