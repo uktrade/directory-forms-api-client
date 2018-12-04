@@ -5,7 +5,8 @@ from directory_forms_api_client.client import forms_api_client
 
 class AbstractAction(abc.ABC):
 
-    def __init__(self, client=forms_api_client, *args, **kwargs):
+    def __init__(self, form_url, client=forms_api_client, *args, **kwargs):
+        self.form_url = form_url
         self.client = client
 
     @property
@@ -22,6 +23,7 @@ class AbstractAction(abc.ABC):
     def serialize_meta(self):
         return {
             'action_name': self.name,
+            'form_url': self.form_url,
             **self.meta,
         }
 
