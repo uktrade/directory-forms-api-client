@@ -10,6 +10,7 @@ def test_email_action_mixin_action_class(settings):
         client=mock_client,
         subject='a subject',
         reply_to=['reply_to@example.com'],
+        form_url='/the/form/',
     )
 
     action.save({'field_one': 'value one', 'field_two': 'value two'})
@@ -22,6 +23,7 @@ def test_email_action_mixin_action_class(settings):
             'recipients': ['test@example.com'],
             'reply_to': ['reply_to@example.com'],
             'subject': 'a subject',
+            'form_url': '/the/form/',
         }
     })
 
@@ -35,6 +37,7 @@ def test_zendesk_action_mixin_action_class(settings):
         full_name='jim example',
         email_address='jim@example.com',
         service_name='some service',
+        form_url='/the/form/',
     )
 
     action.save({'requester_email': 'a@foo.com', 'field_two': 'value two'})
@@ -48,6 +51,7 @@ def test_zendesk_action_mixin_action_class(settings):
             'full_name': 'jim example',
             'email_address': 'jim@example.com',
             'service_name': 'some service',
+            'form_url': '/the/form/',
         }
     })
 
@@ -62,6 +66,7 @@ def test_zendesk_action_mixin_action_class_subdomain(settings):
         email_address='jim@example.com',
         service_name='some service',
         subdomain='some-sobdomain',
+        form_url='/the/form/',
     )
 
     action.save({'requester_email': 'a@foo.com', 'field_two': 'value two'})
@@ -76,6 +81,7 @@ def test_zendesk_action_mixin_action_class_subdomain(settings):
             'email_address': 'jim@example.com',
             'subdomain': 'some-sobdomain',
             'service_name': 'some service',
+            'form_url': '/the/form/',
         }
     })
 
@@ -88,6 +94,7 @@ def test_gov_notify_action_mixin_action_class(settings):
         template_id='123456',
         email_address='jim@example.com',
         email_reply_to_id='123',
+        form_url='/the/form/',
     )
 
     action.save({'name': 'hello'})
@@ -100,6 +107,7 @@ def test_gov_notify_action_mixin_action_class(settings):
             'template_id': '123456',
             'email_address': 'jim@example.com',
             'email_reply_to_id': '123',
+            'form_url': '/the/form/',
         }
     })
 
@@ -111,6 +119,7 @@ def test_gov_notify_action_mixin_action_class_no_reply_id(settings):
         client=mock_client,
         template_id='123456',
         email_address='jim@example.com',
+        form_url='/the/form/',
     )
 
     action.save({'name': 'hello'})
@@ -122,6 +131,7 @@ def test_gov_notify_action_mixin_action_class_no_reply_id(settings):
             'action_name': 'gov-notify',
             'template_id': '123456',
             'email_address': 'jim@example.com',
+            'form_url': '/the/form/',
         }
     })
 
@@ -131,7 +141,8 @@ def test_pardot_action_mixin_action_class(settings):
     mock_client = mock.Mock(spec_set=client.APIFormsClient)
     action = actions.PardotAction(
         client=mock_client,
-        pardot_url='http://www.example.com/some/submission/path/'
+        pardot_url='http://www.example.com/some/submission/path/',
+        form_url='/the/form/',
     )
 
     action.save({'name': 'hello'})
@@ -142,5 +153,6 @@ def test_pardot_action_mixin_action_class(settings):
         'meta': {
             'action_name': 'pardot',
             'pardot_url': 'http://www.example.com/some/submission/path/',
+            'form_url': '/the/form/',
         }
     })

@@ -6,11 +6,14 @@ from directory_forms_api_client import actions
 class EmailActionMixin:
     action_class = actions.EmailAction
 
-    def save(self, recipients, subject, reply_to, *args, **kwargs):
+    def save(
+        self, recipients, subject, reply_to, form_url=None, *args, **kwargs
+    ):
         action = self.action_class(
             recipients=recipients,
             subject=subject,
             reply_to=reply_to,
+            form_url=form_url,
         )
         return action.save(self.serialized_data)
 
@@ -35,14 +38,15 @@ class ZendeskActionMixin:
 
     def save(
         self, email_address, full_name, subject, service_name, subdomain=None,
-        *args, **kwargs
+        form_url=None, *args, **kwargs
     ):
         action = self.action_class(
             email_address=email_address,
             full_name=full_name,
             subject=subject,
             service_name=service_name,
-            subdomain=subdomain
+            subdomain=subdomain,
+            form_url=form_url,
         )
         return action.save(self.serialized_data)
 
@@ -56,12 +60,13 @@ class GovNotifyActionMixin:
 
     def save(
         self, template_id, email_address, email_reply_to_id=None,
-        *args, **kwargs
+        form_url=None, *args, **kwargs
     ):
         action = self.action_class(
             template_id=template_id,
             email_address=email_address,
-            email_reply_to_id=email_reply_to_id
+            email_reply_to_id=email_reply_to_id,
+            form_url=form_url,
         )
         return action.save(self.serialized_data)
 
@@ -73,8 +78,8 @@ class GovNotifyActionMixin:
 class PardotActionMixin:
     action_class = actions.PardotAction
 
-    def save(self, pardot_url, *args, **kwargs):
-        action = self.action_class(pardot_url=pardot_url,)
+    def save(self, pardot_url, form_url=None, *args, **kwargs):
+        action = self.action_class(pardot_url=pardot_url, form_url=form_url)
         return action.save(self.serialized_data)
 
     @property
