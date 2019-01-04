@@ -43,6 +43,7 @@ def test_email_action_mixin_user_submitted_email(classes, mock_action_class):
             return '<a>' + self.cleaned_data['title'] + '</a>'
 
     form = TestForm(data={'title': 'Example', 'email': 'a@foo.com'})
+    form_session = {}
 
     assert form.is_valid()
 
@@ -51,6 +52,7 @@ def test_email_action_mixin_user_submitted_email(classes, mock_action_class):
         subject='a subject',
         reply_to=['reply_to@example.com'],
         form_url='/the/form/',
+        form_session=form_session,
     )
 
     assert mock_action_class.call_count == 1
@@ -59,6 +61,7 @@ def test_email_action_mixin_user_submitted_email(classes, mock_action_class):
         subject='a subject',
         reply_to=['reply_to@example.com'],
         form_url='/the/form/',
+        form_session=form_session,
     )
     assert mock_action_class().save.call_count == 1
     assert mock_action_class().save.call_args == mock.call(
@@ -88,6 +91,7 @@ def test_email_action_mixin_environment_defined_email(
             return '<a>' + self.cleaned_data['title'] + '</a>'
 
     form = TestForm(data={'title': 'Example'})
+    form_session = {}
 
     assert form.is_valid()
 
@@ -96,6 +100,7 @@ def test_email_action_mixin_environment_defined_email(
         subject='a subject',
         reply_to=['reply_to@example.com'],
         form_url='/the/form/',
+        form_session=form_session,
     )
 
     assert mock_action_class.call_count == 1
@@ -104,6 +109,7 @@ def test_email_action_mixin_environment_defined_email(
         subject='a subject',
         reply_to=['reply_to@example.com'],
         form_url='/the/form/',
+        form_session=form_session,
     )
     assert mock_action_class().save.call_count == 1
     assert mock_action_class().save.call_args == mock.call(
@@ -129,6 +135,7 @@ def test_zendesk_action_mixin(classes, mock_action_class):
         'subject': 'hello there',
     }
     form = TestForm(data=data)
+    form_session = {}
 
     assert form.is_valid()
 
@@ -138,6 +145,7 @@ def test_zendesk_action_mixin(classes, mock_action_class):
         subject=data['subject'],
         service_name='some service',
         form_url='/the/form/',
+        form_session=form_session,
     )
 
     assert mock_action_class.call_count == 1
@@ -148,6 +156,7 @@ def test_zendesk_action_mixin(classes, mock_action_class):
         service_name='some service',
         subdomain=None,
         form_url='/the/form/',
+        form_session=form_session,
     )
     assert mock_action_class().save.call_count == 1
     assert mock_action_class().save.call_args == mock.call(form.cleaned_data)
@@ -189,8 +198,9 @@ def test_gov_notify_action(classes, mock_action_class):
         'template_id': '123456',
         'title': 'some title',
     }
-    form = TestForm(data)
+    form_session = {}
 
+    form = TestForm(data)
     assert form.is_valid()
 
     form.save(
@@ -198,6 +208,7 @@ def test_gov_notify_action(classes, mock_action_class):
         email_address=data['email_address'],
         email_reply_to_id='123',
         form_url='/the/form/',
+        form_session=form_session,
     )
 
     assert mock_action_class.call_count == 1
@@ -206,6 +217,7 @@ def test_gov_notify_action(classes, mock_action_class):
         email_address=data['email_address'],
         email_reply_to_id='123',
         form_url='/the/form/',
+        form_session=form_session,
     )
     assert mock_action_class().save.call_count == 1
     assert mock_action_class().save.call_args == mock.call(form.cleaned_data)
@@ -228,6 +240,7 @@ def test_gov_notify_action_no_reply_to_id(classes, mock_action_class):
         'title': 'some title',
     }
     form = TestForm(data)
+    form_session = {}
 
     assert form.is_valid()
 
@@ -235,6 +248,7 @@ def test_gov_notify_action_no_reply_to_id(classes, mock_action_class):
         template_id=data['template_id'],
         email_address=data['email_address'],
         form_url='/the/form/',
+        form_session=form_session,
     )
 
     assert mock_action_class.call_count == 1
@@ -243,6 +257,7 @@ def test_gov_notify_action_no_reply_to_id(classes, mock_action_class):
         email_address=data['email_address'],
         email_reply_to_id=None,
         form_url='/the/form/',
+        form_session=form_session,
     )
     assert mock_action_class().save.call_count == 1
     assert mock_action_class().save.call_args == mock.call(form.cleaned_data)
@@ -264,6 +279,7 @@ def test_pardot_action(classes, mock_action_class):
         'template_id': '123456',
         'title': 'some title',
     }
+    form_session = {}
     form = TestForm(data)
 
     assert form.is_valid()
@@ -271,12 +287,14 @@ def test_pardot_action(classes, mock_action_class):
     form.save(
         pardot_url='http://www.example.com/some/submission/path/',
         form_url='/the/form/',
+        form_session=form_session
     )
 
     assert mock_action_class.call_count == 1
     assert mock_action_class.call_args == mock.call(
         pardot_url='http://www.example.com/some/submission/path/',
         form_url='/the/form/',
+        form_session=form_session,
     )
     assert mock_action_class().save.call_count == 1
     assert mock_action_class().save.call_args == mock.call(form.cleaned_data)

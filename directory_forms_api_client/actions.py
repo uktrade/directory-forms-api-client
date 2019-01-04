@@ -5,9 +5,10 @@ from directory_forms_api_client.client import forms_api_client
 
 class AbstractAction(abc.ABC):
 
-    def __init__(self, form_url, client=forms_api_client, *args, **kwargs):
+    def __init__(self, form_url, client=forms_api_client, form_session=None):
         self.form_url = form_url
         self.client = client
+        self.form_session = form_session
 
     @property
     @abc.abstractmethod
@@ -21,13 +22,17 @@ class AbstractAction(abc.ABC):
         }
 
     def serialize_meta(self):
-        return {
+        meta = {
             'action_name': self.name,
             'form_url': self.form_url,
             **self.meta,
         }
+        if self.form_session:
+            meta['funnel_steps'] = self.form_session.funnel_steps
+            meta['ingress_url'] = self.form_session.ingress_url
+        return meta
 
-    def save(self, data):
+    def save(self, data, form_session=None,):
         serialized_data = self.serialize_data(data)
         return self.client.submit_generic(serialized_data)
 

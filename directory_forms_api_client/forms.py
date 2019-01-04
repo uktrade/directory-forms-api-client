@@ -7,13 +7,15 @@ class EmailActionMixin:
     action_class = actions.EmailAction
 
     def save(
-        self, recipients, subject, reply_to, form_url=None, *args, **kwargs
+        self, recipients, subject, reply_to, form_url=None, form_session=None,
+        *args, **kwargs
     ):
         action = self.action_class(
             recipients=recipients,
             subject=subject,
             reply_to=reply_to,
             form_url=form_url,
+            form_session=form_session
         )
         return action.save(self.serialized_data)
 
@@ -38,7 +40,7 @@ class ZendeskActionMixin:
 
     def save(
         self, email_address, full_name, subject, service_name, subdomain=None,
-        form_url=None, *args, **kwargs
+        form_url=None, form_session=None, *args, **kwargs
     ):
         action = self.action_class(
             email_address=email_address,
@@ -47,6 +49,7 @@ class ZendeskActionMixin:
             service_name=service_name,
             subdomain=subdomain,
             form_url=form_url,
+            form_session=form_session
         )
         return action.save(self.serialized_data)
 
@@ -60,13 +63,14 @@ class GovNotifyActionMixin:
 
     def save(
         self, template_id, email_address, email_reply_to_id=None,
-        form_url=None, *args, **kwargs
+        form_url=None, form_session=None, *args, **kwargs
     ):
         action = self.action_class(
             template_id=template_id,
             email_address=email_address,
             email_reply_to_id=email_reply_to_id,
             form_url=form_url,
+            form_session=form_session,
         )
         return action.save(self.serialized_data)
 
@@ -78,8 +82,12 @@ class GovNotifyActionMixin:
 class PardotActionMixin:
     action_class = actions.PardotAction
 
-    def save(self, pardot_url, form_url=None, *args, **kwargs):
-        action = self.action_class(pardot_url=pardot_url, form_url=form_url)
+    def save(
+        self, pardot_url, form_url=None, form_session=None, *args, **kwargs
+    ):
+        action = self.action_class(
+            pardot_url=pardot_url, form_url=form_url, form_session=form_session
+        )
         return action.save(self.serialized_data)
 
     @property
