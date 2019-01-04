@@ -31,10 +31,9 @@ class FormSession:
     def funnel_steps(self):
         self.session.pop(self.KEY_FUNNEL_STEPS, None)
 
-    def __del__(self):
+    def clear(self):
         del self.funnel_steps
         del self.ingress_url
-        return super().__del__()
 
 
 class FormSessionMixin:
@@ -43,3 +42,9 @@ class FormSessionMixin:
     def dispatch(self, request, *args, **kwargs):
         self.form_session = self.form_session_class(request=request)
         return super().dispatch(request=request, *args, **kwargs)
+
+    def get(self, *args, **kwargs):
+        if not self.form_session.ingress_url:
+            ingress_url = self.request.META.get('HTTP_REFERER')
+            self.form_session.ingress_url = ingress_url
+        return super().get(*args, **kwargs)
