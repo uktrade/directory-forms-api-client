@@ -5,10 +5,15 @@ from directory_forms_api_client.client import forms_api_client
 
 class AbstractAction(abc.ABC):
 
-    def __init__(self, form_url, client=forms_api_client, form_session=None):
+    def __init__(
+        self, form_url, client=forms_api_client, form_session=None,
+        sender=None, spam_control=None
+    ):
         self.form_url = form_url
         self.client = client
         self.form_session = form_session
+        self.sender = sender or {}
+        self.spam_control = spam_control or {}
 
     @property
     @abc.abstractmethod
@@ -25,6 +30,8 @@ class AbstractAction(abc.ABC):
         meta = {
             'action_name': self.name,
             'form_url': self.form_url,
+            'sender': self.sender,
+            'spam_control': self.spam_control,
             **self.meta,
         }
         if self.form_session:

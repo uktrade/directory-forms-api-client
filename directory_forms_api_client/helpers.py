@@ -1,3 +1,15 @@
+class Sender(dict):
+    def __init__(self, email_address, country_code=None):
+        super().__init__(
+            email_address=email_address, country_code=country_code
+        )
+
+
+class SpamControl(dict):
+    def __init__(self, contents):
+        super().__init__(contents=contents)
+
+
 class FormSession:
 
     KEY_INGRESS_URL = 'DIRECTORY_API_FORMS_INGRESS_URL'

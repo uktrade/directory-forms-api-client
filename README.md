@@ -125,6 +125,49 @@ form.save(
 )
 ```
 
+## Spam checking
+
+Spam checking can be activated by including a `spam_contol` object in the submission:
+
+```py
+    from directory_forms_api_client import helpers
+
+    spam_control = helpers.SpamControl(
+        # data that is worth spam checking
+        contents=[form.cleaned_data['comment']],
+    )
+    form.save(
+        template_id=data['template_id'],
+        email_address=data['email_address'],
+        form_url='/the/form/',
+        spam_control=spam_control,
+    )
+```
+
+This will result in the content being checked for spam before the submission is sent.
+
+## Senders
+
+Reporting on the submissions of specific senders can be facilitated by including a `sender` object in the submission.
+
+```py
+    from directory_forms_api_client import helpers
+
+    sender = helpers.Sender(
+        email_address=[form.cleaned_data['email_address']],
+        country_code=forms.cleaned_data['country']
+    )
+    form.save(
+        template_id=data['template_id'],
+        email_address=data['email_address'],
+        form_url='/the/form/',
+        sender=sender,
+    )
+```
+
+This allows for country-specific data retention policies to be respected, and to improve spam control functionality.
+
+
 ## Development
 
     $ git clone https://github.com/uktrade/directory-forms-api-client

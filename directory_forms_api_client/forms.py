@@ -3,21 +3,23 @@ from django.forms import Form
 from directory_forms_api_client import actions
 
 
-class EmailActionMixin:
-    action_class = actions.EmailAction
+class AbstractActionMixin:
 
-    def save(
-        self, recipients, subject, reply_to, form_url=None, form_session=None,
-        *args, **kwargs
-    ):
-        action = self.action_class(
-            recipients=recipients,
-            subject=subject,
-            reply_to=reply_to,
-            form_url=form_url,
-            form_session=form_session
-        )
+    @property
+    def action_class(self):
+        raise NotImplementedError
+
+    def save(self, *args, **kwargs):
+        action = self.action_class(*args, **kwargs)
         return action.save(self.serialized_data)
+
+    @property
+    def serialized_data(self):
+        return self.cleaned_data
+
+
+class EmailActionMixin(AbstractActionMixin):
+    action_class = actions.EmailAction
 
     @property
     def serialized_data(self):
@@ -35,64 +37,16 @@ class EmailActionMixin:
         raise NotImplementedError()
 
 
-class ZendeskActionMixin:
+class ZendeskActionMixin(AbstractActionMixin):
     action_class = actions.ZendeskAction
 
-    def save(
-        self, email_address, full_name, subject, service_name, subdomain=None,
-        form_url=None, form_session=None, *args, **kwargs
-    ):
-        action = self.action_class(
-            email_address=email_address,
-            full_name=full_name,
-            subject=subject,
-            service_name=service_name,
-            subdomain=subdomain,
-            form_url=form_url,
-            form_session=form_session
-        )
-        return action.save(self.serialized_data)
 
-    @property
-    def serialized_data(self):
-        return self.cleaned_data
-
-
-class GovNotifyActionMixin:
+class GovNotifyActionMixin(AbstractActionMixin):
     action_class = actions.GovNotifyAction
 
-    def save(
-        self, template_id, email_address, email_reply_to_id=None,
-        form_url=None, form_session=None, *args, **kwargs
-    ):
-        action = self.action_class(
-            template_id=template_id,
-            email_address=email_address,
-            email_reply_to_id=email_reply_to_id,
-            form_url=form_url,
-            form_session=form_session,
-        )
-        return action.save(self.serialized_data)
 
-    @property
-    def serialized_data(self):
-        return self.cleaned_data
-
-
-class PardotActionMixin:
+class PardotActionMixin(AbstractActionMixin):
     action_class = actions.PardotAction
-
-    def save(
-        self, pardot_url, form_url=None, form_session=None, *args, **kwargs
-    ):
-        action = self.action_class(
-            pardot_url=pardot_url, form_url=form_url, form_session=form_session
-        )
-        return action.save(self.serialized_data)
-
-    @property
-    def serialized_data(self):
-        return self.cleaned_data
 
 
 class EmailAPIForm(EmailActionMixin, Form):
