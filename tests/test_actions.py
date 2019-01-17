@@ -15,7 +15,24 @@ def form_session(rf):
     return helpers.FormSession(request=request)
 
 
-def test_email_action_mixin_action_class(settings, form_session):
+@pytest.fixture
+def spam_control(rf):
+    return helpers.SpamControl(
+        contents=['hello buy my goods'],
+    )
+
+
+@pytest.fixture
+def sender():
+    return helpers.Sender(
+        email_address='foo@example.com',
+        country_code='UK'
+    )
+
+
+def test_email_action_mixin_action_class(
+    settings, form_session, spam_control, sender
+):
 
     mock_client = mock.Mock(spec_set=client.APIFormsClient)
     action = actions.EmailAction(
@@ -24,7 +41,9 @@ def test_email_action_mixin_action_class(settings, form_session):
         subject='a subject',
         reply_to=['reply_to@example.com'],
         form_url='/the/form/',
-        form_session=form_session
+        form_session=form_session,
+        spam_control=spam_control,
+        sender=sender,
     )
 
     action.save({'field_one': 'value one', 'field_two': 'value two'})
@@ -40,12 +59,20 @@ def test_email_action_mixin_action_class(settings, form_session):
             'form_url': '/the/form/',
             'funnel_steps': ['one', 'two'],
             'ingress_url': 'example.com',
+            'sender': {
+                'email_address': 'foo@example.com',
+                'country_code': 'UK',
+            },
+            'spam_control': {
+                'contents': ['hello buy my goods'],
+            }
         }
     })
 
 
-def test_zendesk_action_mixin_action_class(settings, form_session):
-
+def test_zendesk_action_mixin_action_class(
+    settings, form_session, spam_control, sender
+):
     mock_client = mock.Mock(spec_set=client.APIFormsClient)
     action = actions.ZendeskAction(
         client=mock_client,
@@ -55,6 +82,8 @@ def test_zendesk_action_mixin_action_class(settings, form_session):
         service_name='some service',
         form_url='/the/form/',
         form_session=form_session,
+        spam_control=spam_control,
+        sender=sender,
     )
 
     action.save({'requester_email': 'a@foo.com', 'field_two': 'value two'})
@@ -71,11 +100,20 @@ def test_zendesk_action_mixin_action_class(settings, form_session):
             'form_url': '/the/form/',
             'funnel_steps': ['one', 'two'],
             'ingress_url': 'example.com',
+            'sender': {
+                'email_address': 'foo@example.com',
+                'country_code': 'UK',
+            },
+            'spam_control': {
+                'contents': ['hello buy my goods'],
+            }
         }
     })
 
 
-def test_zendesk_action_mixin_action_class_subdomain(settings, form_session):
+def test_zendesk_action_mixin_action_class_subdomain(
+    settings, form_session, spam_control, sender
+):
 
     mock_client = mock.Mock(spec_set=client.APIFormsClient)
     action = actions.ZendeskAction(
@@ -87,6 +125,8 @@ def test_zendesk_action_mixin_action_class_subdomain(settings, form_session):
         subdomain='some-sobdomain',
         form_url='/the/form/',
         form_session=form_session,
+        spam_control=spam_control,
+        sender=sender,
     )
 
     action.save({'requester_email': 'a@foo.com', 'field_two': 'value two'})
@@ -104,12 +144,20 @@ def test_zendesk_action_mixin_action_class_subdomain(settings, form_session):
             'form_url': '/the/form/',
             'funnel_steps': ['one', 'two'],
             'ingress_url': 'example.com',
+            'sender': {
+                'email_address': 'foo@example.com',
+                'country_code': 'UK',
+            },
+            'spam_control': {
+                'contents': ['hello buy my goods'],
+            }
         }
     })
 
 
-def test_gov_notify_action_mixin_action_class(settings, form_session):
-
+def test_gov_notify_action_mixin_action_class(
+    settings, form_session, spam_control, sender
+):
     mock_client = mock.Mock(spec_set=client.APIFormsClient)
     action = actions.GovNotifyAction(
         client=mock_client,
@@ -118,6 +166,8 @@ def test_gov_notify_action_mixin_action_class(settings, form_session):
         email_reply_to_id='123',
         form_url='/the/form/',
         form_session=form_session,
+        spam_control=spam_control,
+        sender=sender,
     )
 
     action.save({'name': 'hello'})
@@ -133,12 +183,19 @@ def test_gov_notify_action_mixin_action_class(settings, form_session):
             'form_url': '/the/form/',
             'funnel_steps': ['one', 'two'],
             'ingress_url': 'example.com',
+            'sender': {
+                'email_address': 'foo@example.com',
+                'country_code': 'UK',
+            },
+            'spam_control': {
+                'contents': ['hello buy my goods'],
+            }
         }
     })
 
 
 def test_gov_notify_action_mixin_action_class_no_reply_id(
-    settings, form_session
+    settings, form_session, spam_control, sender
 ):
 
     mock_client = mock.Mock(spec_set=client.APIFormsClient)
@@ -148,6 +205,8 @@ def test_gov_notify_action_mixin_action_class_no_reply_id(
         email_address='jim@example.com',
         form_url='/the/form/',
         form_session=form_session,
+        spam_control=spam_control,
+        sender=sender,
     )
 
     action.save({'name': 'hello'})
@@ -162,18 +221,28 @@ def test_gov_notify_action_mixin_action_class_no_reply_id(
             'form_url': '/the/form/',
             'funnel_steps': ['one', 'two'],
             'ingress_url': 'example.com',
+            'sender': {
+                'email_address': 'foo@example.com',
+                'country_code': 'UK',
+            },
+            'spam_control': {
+                'contents': ['hello buy my goods'],
+            }
         }
     })
 
 
-def test_pardot_action_mixin_action_class(settings, form_session):
-
+def test_pardot_action_mixin_action_class(
+    settings, form_session, spam_control, sender
+):
     mock_client = mock.Mock(spec_set=client.APIFormsClient)
     action = actions.PardotAction(
         client=mock_client,
         pardot_url='http://www.example.com/some/submission/path/',
         form_url='/the/form/',
         form_session=form_session,
+        spam_control=spam_control,
+        sender=sender,
     )
 
     action.save({'name': 'hello'})
@@ -187,5 +256,12 @@ def test_pardot_action_mixin_action_class(settings, form_session):
             'form_url': '/the/form/',
             'funnel_steps': ['one', 'two'],
             'ingress_url': 'example.com',
+            'sender': {
+                'email_address': 'foo@example.com',
+                'country_code': 'UK',
+            },
+            'spam_control': {
+                'contents': ['hello buy my goods'],
+            }
         }
     })
