@@ -1,7 +1,9 @@
 class Sender(dict):
-    def __init__(self, email_address, country_code=None):
+    def __init__(self, email_address, country_code=None, sso_user_id=None):
         super().__init__(
-            email_address=email_address, country_code=country_code
+            email_address=email_address,
+            country_code=country_code,
+            sso_user_id=sso_user_id
         )
 
 
