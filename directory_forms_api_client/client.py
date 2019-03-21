@@ -18,6 +18,9 @@ class APIFormsClient(AbstractAPIClient):
     def submit_generic(self, data):
         return self.post(url=self.endpoints['submission'], data=data)
 
+    def get_user_submissions(self, sso_user_id):
+        return self.get(url=self.endpoints['submission'], params={'sso_user_id': sso_user_id})
+
 
 forms_api_client = APIFormsClient(
     base_url=settings.DIRECTORY_FORMS_API_BASE_URL,
