@@ -4,6 +4,7 @@
 [![circle-ci-image]][circle-ci]
 [![codecov-image]][codecov]
 [![pypi-image]][pypi]
+[![semver-image]][semver]
 
 **Directory forms API client for headless forms.**
 
@@ -13,9 +14,8 @@
 
 ## Installation
 
-```shell
-pip install directory_forms_api_client
-```
+    $ pip install directory_forms_api_client
+
 
 ## Usage
 
@@ -27,6 +27,13 @@ The api client must be passed into each form instance, so first set the the clie
 | DIRECTORY_FORMS_API_API_KEY     | Unique to client. Retrieved during the on-boarding process. |
 | DIRECTORY_FORMS_API_SENDER_ID   | Unique to client. Retrieved during the on-boarding process. |
 | DIRECTORY_FORMS_DEFAULT_TIMEOUT |                                                             |
+
+The following [directory client core settings](https://github.com/uktrade/directory-client-core) also apply to directory cms client:
+
+| Setting                                            | Notes                                                 |
+| ---------------------------------------------------| ------------------------------------------------------|
+| DIRECTORY_CLIENT_CORE_CACHE_EXPIRE_SECONDS         | Duration to store the retrieved content in the cache. |    |
+| DIRECTORY_CLIENT_CORE_CACHE_LOG_THROTTLING_SECONDS | Duration to throttle log events for a given url for.  |
 
 Once that is done the forms can be used.
 
@@ -191,7 +198,7 @@ The package should be published to PyPI on merge to master. If you need to do it
 
 Then run the following command:
 
-    make publish
+    $ make publish
 
 
 [code-climate-image]: https://codeclimate.com/github/uktrade/directory-forms-api-client/badges/issue_count.svg
@@ -205,3 +212,6 @@ Then run the following command:
 
 [pypi-image]: https://badge.fury.io/py/directory-forms-api-client.svg
 [pypi]: https://badge.fury.io/py/directory-forms-api-client
+
+[semver-image]: https://img.shields.io/badge/Versioning%20strategy-SemVer-5FBB1C.svg
+[semver]: https://semver.org

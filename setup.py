@@ -27,7 +27,7 @@ setup(
     long_description_content_type='text/markdown',
     include_package_data=True,
     install_requires=[
-        'directory_client_core>=4.0.2,<5.0.0',
+        'directory_client_core>=5.0.0,<6.0.0',
     ],
     extras_require={
         'test': [
@@ -53,7 +53,7 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ]
 )
