@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.0](https://pypi.org/project/directory-forms-api-client/4.1.0/) (2019-06-12)
+[Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/21/files)
+
+**Implemented enhancements:**
+
+- Updated test requirements to test against Django 2.2
+
 ## [4.0.0](https://pypi.org/project/directory-forms-api-client/4.0.0/) (2019-04-23)
 [Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/20/files)
 
