@@ -1,7 +1,6 @@
 from unittest import TestCase
 
 from directory_forms_api_client.client import APIFormsClient
-from directory_forms_api_client.version import __version__
 from tests import stub_request
 
 
@@ -32,6 +31,3 @@ class APIFormsClientTest(TestCase):
 
     def test_sender_id(self):
         assert self.client.request_signer.sender_id == 'test'
-
-    def test_version(self):
-        assert APIFormsClient.version == __version__

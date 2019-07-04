@@ -80,14 +80,14 @@ def test_form_session_unset_all(session_request):
     assert form_session_two.funnel_steps == []
 
 
-class TestView(View):
+class MyView(View):
     def get(self, *args, **kwargs):
         response = HttpResponse('Hello world')
         response.form_session = self.form_session
         return response
 
 
-class FormSessionView(helpers.FormSessionMixin, TestView):
+class FormSessionView(helpers.FormSessionMixin, MyView):
     pass
 
 
