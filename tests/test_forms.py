@@ -216,10 +216,10 @@ def test_email_action_mixin_not_implemented(classes, mock_action_class):
 
 
 @pytest.mark.parametrize('classes', (
-    [forms.GovNotifyActionMixin, Form],
-    [forms.GovNotifyAPIForm]
+    [forms.GovNotifyEmailActionMixin, Form],
+    [forms.GovNotifyEmailAPIForm]
 ))
-def test_gov_notify_action(
+def test_gov_notify_email_action(
     classes, mock_action_class, form_session, spam_control, sender,
 ):
 
@@ -262,8 +262,8 @@ def test_gov_notify_action(
 
 
 @pytest.mark.parametrize('classes', (
-    [forms.GovNotifyActionMixin, Form],
-    [forms.GovNotifyAPIForm]
+    [forms.GovNotifyEmailActionMixin, Form],
+    [forms.GovNotifyEmailAPIForm]
 ))
 def test_gov_notify_action_no_reply_to_id(
     classes, mock_action_class, spam_control, form_session, sender
@@ -339,6 +339,47 @@ def test_pardot_action(
     assert mock_action_class.call_count == 1
     assert mock_action_class.call_args == mock.call(
         pardot_url='http://www.example.com/some/submission/path/',
+        form_url='/the/form/',
+        form_session=form_session,
+        spam_control=spam_control,
+        sender=sender,
+    )
+    assert mock_action_class().save.call_count == 1
+    assert mock_action_class().save.call_args == mock.call(form.cleaned_data)
+
+
+@pytest.mark.parametrize('classes', (
+    [forms.GovNotifyLetterActionMixin, Form],
+    [forms.GovNotifyLetterAPIForm]
+))
+def test_gov_notify_letter_action(
+    classes, mock_action_class, form_session, spam_control, sender,
+):
+
+    class TestForm(*classes):
+        action_class = mock_action_class
+
+    data = {
+        'template_id': '123456',
+    }
+
+    import pdb
+    pdb.set_trace()
+
+    form = TestForm(data)
+    assert form.is_valid()
+
+    form.save(
+        template_id=data['template_id'],
+        form_url='/the/form/',
+        form_session=form_session,
+        spam_control=spam_control,
+        sender=sender,
+    )
+
+    assert mock_action_class.call_count == 1
+    assert mock_action_class.call_args == mock.call(
+        template_id=data['template_id'],
         form_url='/the/form/',
         form_session=form_session,
         spam_control=spam_control,

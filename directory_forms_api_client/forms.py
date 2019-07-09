@@ -41,8 +41,12 @@ class ZendeskActionMixin(AbstractActionMixin):
     action_class = actions.ZendeskAction
 
 
-class GovNotifyActionMixin(AbstractActionMixin):
-    action_class = actions.GovNotifyAction
+class GovNotifyEmailActionMixin(AbstractActionMixin):
+    action_class = actions.GovNotifyEmailAction
+
+
+class GovNotifyLetterActionMixin(AbstractActionMixin):
+    action_class = actions.GovNotifyLetterAction
 
 
 class PardotActionMixin(AbstractActionMixin):
@@ -57,7 +61,11 @@ class ZendeskAPIForm(ZendeskActionMixin, Form):
     pass
 
 
-class GovNotifyAPIForm(GovNotifyActionMixin, Form):
+class GovNotifyEmailAPIForm(GovNotifyEmailActionMixin, Form):
+    pass
+
+
+class GovNotifyLetterAPIForm(GovNotifyLetterActionMixin, Form):
     pass
 
 
