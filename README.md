@@ -145,14 +145,14 @@ class EmailForm(forms.EmailAPIForm):
     def text_body(self):
         ''' Override text_body to text templte of email body.'''
         
-        self.cleaned_data['text_body'] = 'title: ' + str(self.cleaned_data['title'])
-        return text_body
+        text = 'title: ' + str(self.cleaned_data['title'])
+        return text
 
     @property
     def html_body(self):
         ''' Override html_body to return html template of email body.'''
         
-        self.cleaned_data['html_body'] = '<p>title: ' + str(self.cleaned_data['title']) + '</p>'
+        cleaned_html = '<p>title: ' + str(self.cleaned_data['title']) + '</p>'
         return cleaned_html
 
 form = TestForm(data={'title': 'Example'})
