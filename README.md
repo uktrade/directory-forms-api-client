@@ -99,9 +99,7 @@ class EmailForm(forms.ZendeskAPIForm):
             text.append(key)
             text.append(str(value))
             text.append('\n')
-        text = ' '.join(text)
-        self.cleaned_data['text_body'] = text
-        return text_body
+        return ' '.join(text)
 
     @property
     def html_body(self):
@@ -113,8 +111,7 @@ class EmailForm(forms.ZendeskAPIForm):
             cleaned_html.append(':')
             cleaned_html.append(str(value))
             cleaned_html.append('</p>')
-        self.cleaned_data['html_body'] = ''.join(cleaned_html)
-        return cleaned_html
+        return ''.join(cleaned_html)
 
 
 form = TestForm(data={'title': 'Example', 'email': 'a@foo.com'})
