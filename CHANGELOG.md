@@ -4,6 +4,7 @@
 [Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/22/files)
 
 ### Implemented enhancements
+- TT-1599 - Improve Directory Forms API documentation
 - No ticket - Can now import the instantiated client as `from directory_sso_api_client import sso_api_client`
 - No ticket - Remove `version.py`
 
