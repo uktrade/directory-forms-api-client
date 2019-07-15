@@ -176,7 +176,7 @@ def test_gov_notify_email_action_mixin_action_class(
     assert mock_client.submit_generic.call_args == mock.call({
         'data': {'name': 'hello'},
         'meta': {
-            'action_name': 'gov-notify',
+            'action_name': 'gov-notify-email',
             'template_id': '123456',
             'email_address': 'jim@example.com',
             'email_reply_to_id': '123',
@@ -215,7 +215,7 @@ def test_gov_notify_email_action_mixin_action_class_no_reply_id(
     assert mock_client.submit_generic.call_args == mock.call({
         'data': {'name': 'hello'},
         'meta': {
-            'action_name': 'gov-notify',
+            'action_name': 'gov-notify-email',
             'template_id': '123456',
             'email_address': 'jim@example.com',
             'form_url': '/the/form/',
