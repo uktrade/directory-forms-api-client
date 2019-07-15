@@ -298,4 +298,3 @@ def test_gov_notify_letter_action_mixin_action_class(
             'spam_control': {},
         }
     })
-
