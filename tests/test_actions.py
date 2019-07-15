@@ -171,7 +171,6 @@ def test_gov_notify_email_action_mixin_action_class(
     )
 
     action.save({'name': 'hello'})
-
     assert mock_client.submit_generic.call_count == 1
     assert mock_client.submit_generic.call_args == mock.call({
         'data': {'name': 'hello'},
@@ -298,3 +297,4 @@ def test_gov_notify_letter_action_mixin_action_class(
             'spam_control': {},
         }
     })
+

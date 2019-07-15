@@ -95,10 +95,7 @@ class GovNotifyEmailAction(AbstractAction):
 class GovNotifyLetterAction(AbstractAction):
     name = 'gov-notify-letter'
 
-    def __init__(
-        self, template_id,
-        *args, **kwargs
-    ):
+    def __init__(self, template_id, *args, **kwargs):
         self.meta = {
             'template_id': template_id,
         }

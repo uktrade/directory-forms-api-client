@@ -6,7 +6,7 @@
 **Implemented enhancements:**
 
 TT-1604 send letter gov notify
-TT-1604 change govnotifyaction to govnotifyemailaction
+TT-1604 change govnotifyaction to govnotifyemailaction breaking change
 
 ## [4.1.0](https://pypi.org/project/directory-forms-api-client/4.1.0/) (2019-06-12)
 [Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/21/files)
