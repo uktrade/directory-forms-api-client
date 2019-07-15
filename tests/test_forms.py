@@ -363,9 +363,6 @@ def test_gov_notify_letter_action(
         'template_id': '123456',
     }
 
-    import pdb
-    pdb.set_trace()
-
     form = TestForm(data)
     assert form.is_valid()
 
