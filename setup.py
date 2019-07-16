@@ -1,9 +1,12 @@
+"""
+Directory Forms API client
+"""
 from setuptools import setup, find_packages
 
 
 setup(
     name='directory_forms_api_client',
-    version='4.1.1',
+    version='5.0',
     url='https://github.com/uktrade/directory-forms-api-client',
     license='MIT',
     author='Department for International Trade',
@@ -13,7 +16,7 @@ setup(
     long_description_content_type='text/markdown',
     include_package_data=True,
     install_requires=[
-        'directory_client_core>=5.0.0,<6.0.0',
+        'directory_client_core>=6.0.1,<7.0.0',
     ],
     extras_require={
         'test': [

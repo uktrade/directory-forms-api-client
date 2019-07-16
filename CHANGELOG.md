@@ -1,5 +1,17 @@
 # Changelog
 
+## [5.0.0](https://pypi.org/project/directory-forms-api-client/5.0.0/) (2019-07-16)
+[Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/25/files)
+
+**Implemented enhancements:**
+
+## Breaking changes
+TT-1604 send letter via gov notify
+TT-1604 govnotifyemailaction replaces GovNotifyAction
+    - GovNotifyActionMixin has renamed to GovNotifyEmailActionMixin
+    - GovNotifyAPIForm has renamed to GovNotifyEmailAPIForm
+    - directory_client_core upgraded from 5 to 6
+
 ## [4.1.1](https://pypi.org/project/directory-forms-api-client/4.1.1/) (2019-07-04)
 [Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/22/files)
 
@@ -10,7 +22,6 @@
 
 ### Bugs fixed
 - No ticket - Upgrade vulnerable django version to django 1.11.22
-
 
 ## [4.1.0](https://pypi.org/project/directory-forms-api-client/4.1.0/) (2019-06-12)
 [Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/21/files)

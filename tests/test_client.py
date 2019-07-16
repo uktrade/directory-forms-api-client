@@ -1,7 +1,9 @@
-from unittest import TestCase
+import pkg_resources
 
 from directory_forms_api_client.client import APIFormsClient
+
 from tests import stub_request
+from unittest import TestCase
 
 
 class APIFormsClientTest(TestCase):
@@ -31,3 +33,8 @@ class APIFormsClientTest(TestCase):
 
     def test_sender_id(self):
         assert self.client.request_signer.sender_id == 'test'
+
+    def test_version(self):
+        assert APIFormsClient.version == pkg_resources.get_distribution(
+            'directory-forms-api-client'
+        ).version
