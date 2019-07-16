@@ -1,7 +1,7 @@
 from django.conf import settings
 
 from directory_client_core.base import AbstractAPIClient
-from directory_forms_api_client.version import __version__
+import pkg_resources
 
 
 class APIFormsClient(AbstractAPIClient):
@@ -10,7 +10,7 @@ class APIFormsClient(AbstractAPIClient):
         'ping': 'api/healthcheck/ping/',
         'submission': 'api/submission/',
     }
-    version = __version__
+    version = pkg_resources.get_distribution(__package__).version
 
     def ping(self):
         return self.get(url=self.endpoints['ping'])

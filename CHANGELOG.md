@@ -1,12 +1,13 @@
 # Changelog
 
-## [5.0.0](https://pypi.org/project/directory-forms-api-client/5.0.1/) (2019-07-09)
-[Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/21/files)
+## [5.0.0](https://pypi.org/project/directory-forms-api-client/5.0.0/) (2019-07-16)
+[Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/25/files)
 
 **Implemented enhancements:**
 
-TT-1604 send letter gov notify
-TT-1604 change govnotifyaction to govnotifyemailaction breaking change
+## Breaking changes
+TT-1604 send letter via gov notify
+TT-1604 govnotifyemailaction replaces GovNotifyAction
 
 ## [4.1.0](https://pypi.org/project/directory-forms-api-client/4.1.0/) (2019-06-12)
 [Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/21/files)

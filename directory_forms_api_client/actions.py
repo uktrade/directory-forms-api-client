@@ -76,7 +76,6 @@ class ZendeskAction(AbstractAction):
 
 
 class GovNotifyEmailAction(AbstractAction):
-    # Replaces for GovNotifyAction
     name = 'gov-notify-email'
 
     def __init__(
