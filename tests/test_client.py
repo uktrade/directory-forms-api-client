@@ -35,5 +35,5 @@ class APIFormsClientTest(TestCase):
 
     def test_version(self):
         assert APIFormsClient.version == pkg_resources.get_distribution(
-            __package__
+            'directory-forms-api-client'
         ).version
