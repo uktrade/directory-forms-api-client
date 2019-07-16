@@ -16,27 +16,30 @@
 
     $ pip install directory_forms_api_client
 
+## Client Enrollment
+The api client must be created in directory-forms-api's admin panel to access `DIRECTORY_FORMS_API_API_KEY` and `DIRECTORY_FORMS_API_SENER_ID`.
+
+![Enrol-api-client](secret.gif)
 
 ## Usage
 
 The api client must be passed into each form instance, so first set the the client settings:
 
-| Setting                         | Notes                                                       |
-| ------------------------------- | ----------------------------------------------------------- |
-| DIRECTORY_FORMS_API_BASE_URL    |                                                             |
-| DIRECTORY_FORMS_API_API_KEY     | Unique to client. Retrieved during the on-boarding process. |
-| DIRECTORY_FORMS_API_SENDER_ID   | Unique to client. Retrieved during the on-boarding process. |
-| DIRECTORY_FORMS_DEFAULT_TIMEOUT |                                                             |
+| Setting                           | Notes                                                       |
+| --------------------------------- | ----------------------------------------------------------- |
+| `DIRECTORY_FORMS_API_BASE_URL`    |                                                             |
+| `DIRECTORY_FORMS_API_API_KEY`     | Unique to client. Retrieved during the on-boarding process. |
+| `DIRECTORY_FORMS_API_SENDER_ID`   | Unique to client. Retrieved during the on-boarding process. |
+| `DIRECTORY_FORMS_DEFAULT_TIMEOUT` |                                                             |
 
 The following [directory client core settings](https://github.com/uktrade/directory-client-core) also apply to directory cms client:
 
-| Setting                                            | Notes                                                 |
-| ---------------------------------------------------| ------------------------------------------------------|
-| DIRECTORY_CLIENT_CORE_CACHE_EXPIRE_SECONDS         | Duration to store the retrieved content in the cache. |    |
-| DIRECTORY_CLIENT_CORE_CACHE_LOG_THROTTLING_SECONDS | Duration to throttle log events for a given url for.  |
+| Setting                                              | Notes                                                 |
+| -----------------------------------------------------| ------------------------------------------------------|
+| `DIRECTORY_CLIENT_CORE_CACHE_EXPIRE_SECONDS`         | Duration to store the retrieved content in the cache. |    |
+| `DIRECTORY_CLIENT_CORE_CACHE_LOG_THROTTLING_SECONDS` | Duration to throttle log events for a given url for.  |
 
 Once that is done the forms can be used.
-
 
 ### Submit to Zendesk
 
@@ -87,6 +90,29 @@ from directory_forms_api_client import forms
 class EmailForm(forms.ZendeskAPIForm):
     title = fields.CharField()
     email = fields.EmailField()
+    
+    @property
+    def text_body(self):
+        ''' Override text_body to text templte of email body.'''
+        text = []
+        for key, value in self.cleaned_data.items():
+            text.append(key)
+            text.append(str(value))
+            text.append('\n')
+        return ' '.join(text)
+
+    @property
+    def html_body(self):
+        ''' Override html_body to return html template of email body.'''
+        cleaned_html = []
+        for key, value in self.cleaned_data.items():
+            cleaned_html.append('<p>')
+            cleaned_html.append(key)
+            cleaned_html.append(':')
+            cleaned_html.append(str(value))
+            cleaned_html.append('</p>')
+        return ''.join(cleaned_html)
+
 
 form = TestForm(data={'title': 'Example', 'email': 'a@foo.com'})
 
@@ -96,9 +122,14 @@ form.save(
     subject='Some email subject',
     reply_to=['reply@example.com'],
     service_name='Foo Bar',
+    form_url=self.request.get_full_path()
 )
 
 ```
+
+You can also use `EmailActionMixin` or `EmailAction` directly for more complex requirements. For e.g. When creating form when inheriting from another form or collecting data from multi-step forms (where any one form doesn't have the complete data).
+See [here](https://github.com/uktrade/great-domestic-ui/blob/develop/contact/views.py#L268) for an example.
+
 
 #### Send to a pre-defined email address
 ```python
@@ -106,6 +137,20 @@ from directory_forms_api_client import forms
 
 class EmailForm(forms.EmailAPIForm):
     title = fields.CharField()
+    
+    @property
+    def text_body(self):
+        ''' Override text_body to text templte of email body.'''
+        
+        text = 'title: ' + str(self.cleaned_data['title'])
+        return text
+
+    @property
+    def html_body(self):
+        ''' Override html_body to return html template of email body.'''
+        
+        cleaned_html = '<p>title: ' + str(self.cleaned_data['title']) + '</p>'
+        return cleaned_html
 
 form = TestForm(data={'title': 'Example'})
 
@@ -191,10 +236,10 @@ This allows for country-specific data retention policies to be respected, and to
 
 The package should be published to PyPI on merge to master. If you need to do it locally then get the credentials from rattic and add the environment variables to your host machine:
 
-| Setting                     |
-| --------------------------- |
-| DIRECTORY_PYPI_USERNAME     |
-| DIRECTORY_PYPI_PASSWORD     |
+| Setting                       |
+| ----------------------------- |
+| `DIRECTORY_PYPI_USERNAME`     |
+| `DIRECTORY_PYPI_PASSWORD`     |
 
 Then run the following command:
 

@@ -1,8 +1,9 @@
-from unittest import TestCase
+import pkg_resources
 
 from directory_forms_api_client.client import APIFormsClient
-import pkg_resources
+
 from tests import stub_request
+from unittest import TestCase
 
 
 class APIFormsClientTest(TestCase):
@@ -37,3 +38,4 @@ class APIFormsClientTest(TestCase):
         assert APIFormsClient.version == pkg_resources.get_distribution(
             'directory-forms-api-client'
         ).version
+

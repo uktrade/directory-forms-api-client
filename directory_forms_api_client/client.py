@@ -1,7 +1,8 @@
+import pkg_resources
+
 from django.conf import settings
 
 from directory_client_core.base import AbstractAPIClient
-import pkg_resources
 
 
 class APIFormsClient(AbstractAPIClient):
