@@ -38,4 +38,3 @@ class APIFormsClientTest(TestCase):
         assert APIFormsClient.version == pkg_resources.get_distribution(
             'directory-forms-api-client'
         ).version
-
