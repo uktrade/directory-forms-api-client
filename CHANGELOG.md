@@ -8,6 +8,8 @@
 ## Breaking changes
 TT-1604 send letter via gov notify
 TT-1604 govnotifyemailaction replaces GovNotifyAction
+    - GovNotifyActionMixin has renamed to GovNotifyEmailActionMixin
+    - GovNotifyAPIForm has renamed to GovNotifyEmailAPIForm
 
 ## [4.1.0](https://pypi.org/project/directory-forms-api-client/4.1.0/) (2019-06-12)
 [Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/21/files)
