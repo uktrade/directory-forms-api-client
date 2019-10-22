@@ -26,7 +26,8 @@ def spam_control(rf):
 def sender():
     return helpers.Sender(
         email_address='foo@example.com',
-        country_code='UK'
+        country_code='UK',
+        ip_address='192.168.0.1',
     )
 
 
@@ -62,6 +63,7 @@ def test_email_action_mixin_action_class(
             'sender': {
                 'email_address': 'foo@example.com',
                 'country_code': 'UK',
+                'ip_address': '192.168.0.1',
             },
             'spam_control': {
                 'contents': ['hello buy my goods'],
@@ -103,6 +105,7 @@ def test_zendesk_action_mixin_action_class(
             'sender': {
                 'email_address': 'foo@example.com',
                 'country_code': 'UK',
+                'ip_address': '192.168.0.1',
             },
             'spam_control': {
                 'contents': ['hello buy my goods'],
@@ -147,6 +150,7 @@ def test_zendesk_action_mixin_action_class_subdomain(
             'sender': {
                 'email_address': 'foo@example.com',
                 'country_code': 'UK',
+                'ip_address': '192.168.0.1',
             },
             'spam_control': {
                 'contents': ['hello buy my goods'],
@@ -185,6 +189,7 @@ def test_gov_notify_email_action_mixin_action_class(
             'sender': {
                 'email_address': 'foo@example.com',
                 'country_code': 'UK',
+                'ip_address': '192.168.0.1',
             },
             'spam_control': {
                 'contents': ['hello buy my goods'],
@@ -223,6 +228,7 @@ def test_gov_notify_email_action_mixin_action_class_no_reply_id(
             'sender': {
                 'email_address': 'foo@example.com',
                 'country_code': 'UK',
+                'ip_address': '192.168.0.1',
             },
             'spam_control': {
                 'contents': ['hello buy my goods'],
@@ -258,6 +264,7 @@ def test_pardot_action_mixin_action_class(
             'sender': {
                 'email_address': 'foo@example.com',
                 'country_code': 'UK',
+                'ip_address': '192.168.0.1',
             },
             'spam_control': {
                 'contents': ['hello buy my goods'],
