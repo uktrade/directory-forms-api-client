@@ -84,6 +84,7 @@ def test_zendesk_action_mixin_action_class(
         form_session=form_session,
         spam_control=spam_control,
         sender=sender,
+        sender_ip_address='192.168.0.1',
     )
 
     action.save({'requester_email': 'a@foo.com', 'field_two': 'value two'})
@@ -106,7 +107,49 @@ def test_zendesk_action_mixin_action_class(
             },
             'spam_control': {
                 'contents': ['hello buy my goods'],
-            }
+            },
+            'sender_ip_address': '192.168.0.1',
+        }
+    })
+
+
+def test_zendesk_action_mixin_action_class_no_ip(
+    settings, form_session, spam_control, sender
+):
+    mock_client = mock.Mock(spec_set=client.APIFormsClient)
+    action = actions.ZendeskAction(
+        client=mock_client,
+        subject='a subject',
+        full_name='jim example',
+        email_address='jim@example.com',
+        service_name='some service',
+        form_url='/the/form/',
+        form_session=form_session,
+        spam_control=spam_control,
+        sender=sender,
+    )
+
+    action.save({'requester_email': 'a@foo.com', 'field_two': 'value two'})
+
+    assert mock_client.submit_generic.call_count == 1
+    assert mock_client.submit_generic.call_args == mock.call({
+        'data': {'requester_email': 'a@foo.com', 'field_two': 'value two'},
+        'meta': {
+            'action_name': 'zendesk',
+            'subject': 'a subject',
+            'full_name': 'jim example',
+            'email_address': 'jim@example.com',
+            'service_name': 'some service',
+            'form_url': '/the/form/',
+            'funnel_steps': ['one', 'two'],
+            'ingress_url': 'example.com',
+            'sender': {
+                'email_address': 'foo@example.com',
+                'country_code': 'UK',
+            },
+            'spam_control': {
+                'contents': ['hello buy my goods'],
+            },
         }
     })
 
@@ -127,6 +170,7 @@ def test_zendesk_action_mixin_action_class_subdomain(
         form_session=form_session,
         spam_control=spam_control,
         sender=sender,
+        sender_ip_address='192.168.0.1',
     )
 
     action.save({'requester_email': 'a@foo.com', 'field_two': 'value two'})
@@ -150,7 +194,8 @@ def test_zendesk_action_mixin_action_class_subdomain(
             },
             'spam_control': {
                 'contents': ['hello buy my goods'],
-            }
+            },
+            'sender_ip_address': '192.168.0.1',
         }
     })
 
@@ -168,6 +213,7 @@ def test_gov_notify_email_action_mixin_action_class(
         form_session=form_session,
         spam_control=spam_control,
         sender=sender,
+        sender_ip_address='192.168.0.1',
     )
 
     action.save({'name': 'hello'})
@@ -188,12 +234,13 @@ def test_gov_notify_email_action_mixin_action_class(
             },
             'spam_control': {
                 'contents': ['hello buy my goods'],
-            }
+            },
+            'sender_ip_address': '192.168.0.1',
         }
     })
 
 
-def test_gov_notify_email_action_mixin_action_class_no_reply_id(
+def test_gov_notify_email_action_mixin_action_class_no_reply_id_no_ip(
     settings, form_session, spam_control, sender
 ):
 
@@ -226,7 +273,7 @@ def test_gov_notify_email_action_mixin_action_class_no_reply_id(
             },
             'spam_control': {
                 'contents': ['hello buy my goods'],
-            }
+            },
         }
     })
 

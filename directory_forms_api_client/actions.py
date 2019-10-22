@@ -60,7 +60,7 @@ class ZendeskAction(AbstractAction):
     name = 'zendesk'
 
     def __init__(
-        self, subject, full_name, email_address, service_name, subdomain=None,
+        self, subject, full_name, email_address, service_name, sender_ip_address=None, subdomain=None,
         *args, **kwargs
     ):
         self.meta = {
@@ -72,6 +72,8 @@ class ZendeskAction(AbstractAction):
         # if empty Forms API will use the default configured zendesk subdomain
         if subdomain:
             self.meta['subdomain'] = subdomain
+        if sender_ip_address:
+            self.meta['sender_ip_address'] = sender_ip_address
         super().__init__(*args, **kwargs)
 
 
@@ -79,7 +81,7 @@ class GovNotifyEmailAction(AbstractAction):
     name = 'gov-notify-email'
 
     def __init__(
-        self, template_id, email_address, email_reply_to_id=None,
+        self, template_id, email_address, sender_ip_address=None, email_reply_to_id=None,
         *args, **kwargs
     ):
         self.meta = {
@@ -88,6 +90,8 @@ class GovNotifyEmailAction(AbstractAction):
         }
         if email_reply_to_id:
             self.meta['email_reply_to_id'] = email_reply_to_id
+        if sender_ip_address:
+            self.meta['sender_ip_address'] = sender_ip_address
         super().__init__(*args, **kwargs)
 
 
