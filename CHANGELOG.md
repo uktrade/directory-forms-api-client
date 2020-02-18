@@ -1,4 +1,11 @@
 # Changelog
+## [5.2.0](https://pypi.org/project/directory-forms-api-client/5.2.0/) (2020-02-18)
+[Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/27/files)
+
+### Implemented enhancements
+
+* TT-2288 add support for custom authenticators
+
 ## [5.1.0](https://pypi.org/project/directory-forms-api-client/5.1.0/) (2019-10-22)
 [Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/26/files)
 TT-2042 add sender-ip-address for rate limiting  
