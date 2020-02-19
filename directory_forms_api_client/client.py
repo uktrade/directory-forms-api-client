@@ -13,11 +13,11 @@ class APIFormsClient(AbstractAPIClient):
     }
     version = pkg_resources.get_distribution(__package__).version
 
-    def ping(self):
-        return self.get(url=self.endpoints['ping'])
+    def ping(self, authenticator=None):
+        return self.get(url=self.endpoints['ping'], authenticator=authenticator)
 
-    def submit_generic(self, data):
-        return self.post(url=self.endpoints['submission'], data=data)
+    def submit_generic(self, data, authenticator=None):
+        return self.post(url=self.endpoints['submission'], data=data, authenticator=authenticator)
 
 
 forms_api_client = APIFormsClient(
