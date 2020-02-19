@@ -26,7 +26,7 @@ setup(
             'pytest-cov==2.8.1',
             'pytest-django>=3.8.0,<4.0.0',
             'pytest==5.3.5',
-            'requests>=2.18.4,<3.0.0',
+            'requests>=2.22.0,<3.0.0',
             'requests_mock==1.7.0',
             'setuptools>=45.2.0,<50.0.0',
             'twine>=3.1.1,<4.0.0',
