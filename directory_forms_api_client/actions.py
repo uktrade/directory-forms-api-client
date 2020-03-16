@@ -44,6 +44,14 @@ class AbstractAction(abc.ABC):
         return self.client.submit_generic(serialized_data)
 
 
+class SaveOnlyInDatabaseAction(AbstractAction):
+    name = 'save-only-in-db'
+
+    def __init__(self, *args, **kwargs):
+        self.meta = {}
+        super().__init__(*args, **kwargs)
+
+
 class EmailAction(AbstractAction):
     name = 'email'
 

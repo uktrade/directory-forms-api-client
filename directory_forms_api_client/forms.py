@@ -18,6 +18,10 @@ class AbstractActionMixin:
         return self.cleaned_data
 
 
+class SaveOnlyInDatabaseActionMixin(AbstractActionMixin):
+    action_class = actions.SaveOnlyInDatabaseAction
+
+
 class EmailActionMixin(AbstractActionMixin):
     action_class = actions.EmailAction
 
@@ -51,6 +55,10 @@ class GovNotifyLetterActionMixin(AbstractActionMixin):
 
 class PardotActionMixin(AbstractActionMixin):
     action_class = actions.PardotAction
+
+
+class SaveOnlyInDatabaseAPIForm(SaveOnlyInDatabaseActionMixin, Form):
+    pass
 
 
 class EmailAPIForm(EmailActionMixin, Form):

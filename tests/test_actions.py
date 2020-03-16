@@ -31,6 +31,40 @@ def sender():
     )
 
 
+def test_save_only_in_database_action_mixin_action_class(
+    settings, form_session, spam_control, sender
+):
+    mock_client = mock.Mock(spec_set=client.APIFormsClient)
+    action = actions.SaveOnlyInDatabaseAction(
+        client=mock_client,
+        form_url='/the/form/',
+        form_session=form_session,
+        spam_control=spam_control,
+        sender=sender,
+    )
+
+    action.save({'field_one': 'value one', 'field_two': 'value two'})
+
+    assert mock_client.submit_generic.call_count == 1
+    assert mock_client.submit_generic.call_args == mock.call({
+        'data': {'field_one': 'value one', 'field_two': 'value two'},
+        'meta': {
+            'action_name': 'save-only-in-db',
+            'form_url': '/the/form/',
+            'funnel_steps': ['one', 'two'],
+            'ingress_url': 'example.com',
+            'sender': {
+                'email_address': 'foo@example.com',
+                'country_code': 'UK',
+                'ip_address': '192.168.0.1',
+            },
+            'spam_control': {
+                'contents': ['hello buy my goods'],
+            }
+        }
+    })
+
+
 def test_email_action_mixin_action_class(
     settings, form_session, spam_control, sender
 ):

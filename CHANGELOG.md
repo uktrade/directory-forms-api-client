@@ -1,4 +1,13 @@
 # Changelog
+
+## [5.3.0](https://pypi.org/project/directory-forms-api-client/5.3.0/) (2020-03-16)
+[Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/28/files)
+
+### Implemented enhancements
+
+* XOT-1277 - Add ability to send data only to database
+
+
 ## [5.2.0](https://pypi.org/project/directory-forms-api-client/5.2.0/) (2020-02-18)
 [Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/27/files)
 
