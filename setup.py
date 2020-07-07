@@ -20,7 +20,7 @@ setup(
     ],
     extras_require={
         'test': [
-            'codecov==2.0.15',
+            'codecov==2.1.7',
             'django>=2.2.10,<3.0a1',
             'flake8==3.7.9',
             'pytest-cov==2.8.1',
