@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='directory_forms_api_client',
-    version='5.3.0',
+    version='5.3.1',
     url='https://github.com/uktrade/directory-forms-api-client',
     license='MIT',
     author='Department for International Trade',
@@ -21,7 +21,7 @@ setup(
     extras_require={
         'test': [
             'codecov==2.0.15',
-            'django>=2.2.10,<3.0a1',
+            'django>=2.2.10,<4.0.0',
             'flake8==3.7.9',
             'pytest-cov==2.8.1',
             'pytest-django>=3.8.0,<4.0.0',
@@ -41,6 +41,7 @@ setup(
         'Framework :: Django :: 2.0',
         'Framework :: Django :: 2.1',
         'Framework :: Django :: 2.2',
+        'Framework :: Django :: 3.1',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
