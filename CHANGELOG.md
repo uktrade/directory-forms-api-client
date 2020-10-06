@@ -1,7 +1,7 @@
 # Changelog
 
 ## [5.4.0](https://pypi.org/project/directory-forms-api-client/5.4.0/) (2020-10-02)
-[Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/30/files)
+[Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/32/files)
 - No ticket - bump django version and core version in setup.py so Django 3.x can start using this package
 
 
