@@ -47,8 +47,13 @@ class AbstractAction(abc.ABC):
 class SaveOnlyInDatabaseAction(AbstractAction):
     name = 'save-only-in-db'
 
-    def __init__(self, *args, **kwargs):
-        self.meta = {}
+    def __init__(self, subject, full_name, email_address, *args, **kwargs):
+        self.meta = {
+            'full_name': full_name,
+            'email_address': email_address,
+            'subject': subject,
+            'recipient_email': email_address
+        }
         super().__init__(*args, **kwargs)
 
 

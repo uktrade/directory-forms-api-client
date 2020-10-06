@@ -32,7 +32,7 @@ def sender():
 
 
 def test_save_only_in_database_action_mixin_action_class(
-    settings, form_session, spam_control, sender
+        settings, form_session, spam_control, sender
 ):
     mock_client = mock.Mock(spec_set=client.APIFormsClient)
     action = actions.SaveOnlyInDatabaseAction(
@@ -40,35 +40,25 @@ def test_save_only_in_database_action_mixin_action_class(
         form_url='/the/form/',
         form_session=form_session,
         spam_control=spam_control,
-        sender=sender,
+        subject='a subject',
+        full_name='jim example',
+        email_address='jim@example.com',
     )
 
     action.save({'field_one': 'value one', 'field_two': 'value two'})
 
     assert mock_client.submit_generic.call_count == 1
-    assert mock_client.submit_generic.call_args == mock.call({
-        'data': {'field_one': 'value one', 'field_two': 'value two'},
-        'meta': {
-            'action_name': 'save-only-in-db',
-            'form_url': '/the/form/',
-            'funnel_steps': ['one', 'two'],
-            'ingress_url': 'example.com',
-            'sender': {
-                'email_address': 'foo@example.com',
-                'country_code': 'UK',
-                'ip_address': '192.168.0.1',
-            },
-            'spam_control': {
-                'contents': ['hello buy my goods'],
-            }
-        }
-    })
+    assert mock_client.submit_generic.call_args == mock.call(
+        {'data': {'field_one': 'value one', 'field_two': 'value two'},
+         'meta': {'action_name': 'save-only-in-db', 'form_url': '/the/form/', 'sender': {},
+                  'spam_control': {'contents': ['hello buy my goods']}, 'full_name': 'jim example',
+                  'email_address': 'jim@example.com', 'subject': 'a subject', 'recipient_email': 'jim@example.com',
+                  'funnel_steps': ['one', 'two'], 'ingress_url': 'example.com'}})
 
 
 def test_email_action_mixin_action_class(
-    settings, form_session, spam_control, sender
+        settings, form_session, spam_control, sender
 ):
-
     mock_client = mock.Mock(spec_set=client.APIFormsClient)
     action = actions.EmailAction(
         recipients=['test@example.com'],
@@ -107,7 +97,7 @@ def test_email_action_mixin_action_class(
 
 
 def test_zendesk_action_mixin_action_class(
-    settings, form_session, spam_control, sender
+        settings, form_session, spam_control, sender
 ):
     mock_client = mock.Mock(spec_set=client.APIFormsClient)
     action = actions.ZendeskAction(
@@ -149,9 +139,8 @@ def test_zendesk_action_mixin_action_class(
 
 
 def test_zendesk_action_mixin_action_class_subdomain(
-    settings, form_session, spam_control, sender
+        settings, form_session, spam_control, sender
 ):
-
     mock_client = mock.Mock(spec_set=client.APIFormsClient)
     action = actions.ZendeskAction(
         client=mock_client,
@@ -194,7 +183,7 @@ def test_zendesk_action_mixin_action_class_subdomain(
 
 
 def test_gov_notify_email_action_mixin_action_class(
-    settings, form_session, spam_control, sender
+        settings, form_session, spam_control, sender
 ):
     mock_client = mock.Mock(spec_set=client.APIFormsClient)
     action = actions.GovNotifyEmailAction(
@@ -233,9 +222,8 @@ def test_gov_notify_email_action_mixin_action_class(
 
 
 def test_gov_notify_email_action_mixin_action_class_no_reply_id(
-    settings, form_session, spam_control, sender
+        settings, form_session, spam_control, sender
 ):
-
     mock_client = mock.Mock(spec_set=client.APIFormsClient)
     action = actions.GovNotifyEmailAction(
         client=mock_client,
@@ -272,7 +260,7 @@ def test_gov_notify_email_action_mixin_action_class_no_reply_id(
 
 
 def test_pardot_action_mixin_action_class(
-    settings, form_session, spam_control, sender
+        settings, form_session, spam_control, sender
 ):
     mock_client = mock.Mock(spec_set=client.APIFormsClient)
     action = actions.PardotAction(
@@ -308,7 +296,7 @@ def test_pardot_action_mixin_action_class(
 
 
 def test_gov_notify_letter_action_mixin_action_class(
-    settings, form_session,
+        settings, form_session,
 ):
     mock_client = mock.Mock(spec_set=client.APIFormsClient)
     action = actions.GovNotifyLetterAction(
@@ -318,11 +306,11 @@ def test_gov_notify_letter_action_mixin_action_class(
         form_session=form_session,
     )
     data = {
-            'address_line_1': 'The Occupier',
-            'address_line_2': '123 High Street',
-            'postcode': 'SW14 6BF',
-            'name': 'John Smith',
-        }
+        'address_line_1': 'The Occupier',
+        'address_line_2': '123 High Street',
+        'postcode': 'SW14 6BF',
+        'name': 'John Smith',
+    }
     action.save(data)
 
     assert mock_client.submit_generic.call_count == 1
