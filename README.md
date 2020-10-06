@@ -260,3 +260,4 @@ Then run the following command:
 
 [semver-image]: https://img.shields.io/badge/Versioning%20strategy-SemVer-5FBB1C.svg
 [semver]: https://semver.org
+
