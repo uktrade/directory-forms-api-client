@@ -1,5 +1,11 @@
 # Changelog
 
+
+## [6.0.0](https://pypi.org/project/directory-forms-api-client/6.0.0/) (2020-12-17)
+[Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/31/files)
+- GBAU-893 - Fixed SaveInDatabaseOnly actions
+
+
 ## [5.4.0](https://pypi.org/project/directory-forms-api-client/5.4.0/) (2020-10-02)
 [Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/30/files)
 - No ticket - bump django version and core version in setup.py so Django 3.x can start using this package
