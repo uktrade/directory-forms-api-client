@@ -8,6 +8,7 @@ jobs:
       - run:
           command: |
             python3 -m venv .venv
+            pip install --upgrade pip
             . .venv/bin/activate
             make test_requirements
             make test
