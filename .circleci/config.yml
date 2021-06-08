@@ -8,8 +8,8 @@ jobs:
       - run:
           command: |
             python3 -m venv .venv
-            pip install --upgrade pip
             . .venv/bin/activate
+            pip install --upgrade pip
             make test_requirements
             make test
   publish_to_pypi:
@@ -21,6 +21,7 @@ jobs:
           command: |
             python3 -m venv .venv
             . .venv/bin/activate
+            pip install --upgrade pip
             make test_requirements
             make publish
 
