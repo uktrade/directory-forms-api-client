@@ -44,6 +44,16 @@ class APIFormsClientTest(TestCase):
         assert 'Authorization' in request.headers
         assert request.headers['Authorization'].startswith('Basic ')
 
+    @stub_request('https://forms.com/api/delete-submission/test@gmail.com/', 'delete')
+    def test_delete_form_with_authenticator(self, stub):
+        self.client.delete_submission(
+            email_address='test@gmail.com', authenticator=basic_authenticator)
+
+        request = stub.request_history[0]
+        assert 'Authorization' in request.headers
+        assert request.headers['Authorization'].startswith('Basic ')
+
+
     def test_timeout(self):
         assert self.client.timeout == 4
 
