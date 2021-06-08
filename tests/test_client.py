@@ -53,7 +53,6 @@ class APIFormsClientTest(TestCase):
         assert 'Authorization' in request.headers
         assert request.headers['Authorization'].startswith('Basic ')
 
-
     def test_timeout(self):
         assert self.client.timeout == 4
 
