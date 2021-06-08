@@ -1,8 +1,8 @@
 # Changelog
 
 
-## [6.1.0](https://pypi.org/project/directory-forms-api-client/6.1.0/) (2021-06-08)
-[Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/32/files)
+## [6.1.0](https://pypi.org/project/directory-forms-api-client/6.1.0/) (2021-06-09)
+[Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/34/files)
 - GP2-2718 - Data retention - added new endpoint
 
 ## [6.0.0](https://pypi.org/project/directory-forms-api-client/6.0.0/) (2020-12-17)
