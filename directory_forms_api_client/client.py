@@ -10,6 +10,7 @@ class APIFormsClient(AbstractAPIClient):
     endpoints = {
         'ping': 'api/healthcheck/ping/',
         'submission': 'api/submission/',
+        'delete_submissions': 'api/delete-submissions/'
     }
     version = pkg_resources.get_distribution(__package__).version
 
@@ -18,6 +19,10 @@ class APIFormsClient(AbstractAPIClient):
 
     def submit_generic(self, data, authenticator=None):
         return self.post(url=self.endpoints['submission'], data=data, authenticator=authenticator)
+
+    def delete_submissions(self, email_address, authenticator=None):
+        endpoint = self.endpoints['delete_submissions'] + f'{email_address}/'
+        return self.delete(url=endpoint, authenticator=authenticator)
 
 
 forms_api_client = APIFormsClient(
