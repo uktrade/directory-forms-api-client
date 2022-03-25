@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='directory_forms_api_client',
-    version='6.1.0',
+    version='6.2.0',
     url='https://github.com/uktrade/directory-forms-api-client',
     license='MIT',
     author='Department for International Trade',

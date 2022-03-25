@@ -57,6 +57,7 @@ class SaveOnlyInDatabaseAction(AbstractAction):
         super().__init__(*args, **kwargs)
 
 
+# To be deprecated - DO NOT USE EmailAction Use GovNotifyEmailAction
 class EmailAction(AbstractAction):
     name = 'email'
 
