@@ -1,8 +1,7 @@
 """
 Directory Forms API client
 """
-from setuptools import setup, find_packages
-
+from setuptools import find_packages, setup
 
 setup(
     name='directory_forms_api_client',
@@ -42,11 +41,12 @@ setup(
         'Framework :: Django :: 2.1',
         'Framework :: Django :: 2.2',
         'Framework :: Django :: 3.1',
+        'Framework :: Django :: 3.2',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.9',
         'Topic :: Software Development :: Libraries :: Python Modules',
-    ]
+    ],
 )
