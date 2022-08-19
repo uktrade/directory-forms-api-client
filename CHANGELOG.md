@@ -1,5 +1,8 @@
 # Changelog
 
+## [7.0.0](https://pypi.org/project/directory-forms-api-client/7.0.0/) (2022-08-19)
+[Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/36/files)
+- GLS-386 - Update for use with Django 3.2
 
 ## [6.2.0](https://pypi.org/project/directory-forms-api-client/6.2.0/) (2022-03-25)
 [Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/36/files)
