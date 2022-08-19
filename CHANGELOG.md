@@ -1,7 +1,11 @@
 # Changelog
 
+## [7.1.0](https://pypi.org/project/directory-forms-api-client/7.1.0/) (2022-08-19)
+[Full Changelog](https://github.com/uktrade/directory-sso-api-client/releases/tag/v7.1.0)
+- GLS-386 - Update maximum version of directory_client_core for Django 3.2 upgrade
+
 ## [7.0.0](https://pypi.org/project/directory-forms-api-client/7.0.0/) (2022-08-19)
-[Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/36/files)
+[Full Changelog](https://github.com/uktrade/directory-sso-api-client/releases/tag/v7.0.0)
 - GLS-386 - Update for use with Django 3.2
 
 ## [6.2.0](https://pypi.org/project/directory-forms-api-client/6.2.0/) (2022-03-25)
