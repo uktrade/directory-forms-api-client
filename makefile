@@ -11,15 +11,18 @@ flake8:
 	flake8 . --exclude=.venv --max-line-length=120
 
 pytest:
-	pytest . --cov=. $(pytest_args) --capture=no --last-failed -vv
+	pytest . $(pytest_args) --capture=no --last-failed -vv
 
-CODECOV := \
-	if [ "$$CODECOV_REPO_TOKEN" != "" ]; then \
-	   codecov --token=$$CODECOV_REPO_TOKEN ;\
-	fi
+pytest_codecov:
+	pytest \
+		--junitxml=test-reports/junit.xml \
+		--cov-config=.coveragerc \
+		--cov-report=term \
+		--cov=. \
+		--codecov \
+		$(ARGUMENTS)
 
-test: flake8 pytest
-	$(CODECOV)
+test: flake8 pytest_codecov
 
 publish:
 	rm -rf build dist; \
