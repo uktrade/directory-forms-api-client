@@ -1,5 +1,9 @@
 # Changelog
 
+## [7.2.0](https://pypi.org/project/directory-forms-api-client/7.2.0/) (2022-05-23)
+[Full Changelog]()
+- KLS-622 - Update Django to 4.2
+
 ## [7.1.0](https://pypi.org/project/directory-forms-api-client/7.1.0/) (2022-08-19)
 [Full Changelog](https://github.com/uktrade/directory-sso-api-client/releases/tag/v7.1.0)
 - GLS-386 - Update maximum version of directory_client_core for Django 3.2 upgrade
