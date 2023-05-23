@@ -1,7 +1,7 @@
 # Changelog
 
 ## [7.2.0](https://pypi.org/project/directory-forms-api-client/7.2.0/) (2022-05-23)
-[Full Changelog]()
+[Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/41)
 - KLS-622 - Update Django to 4.2
 
 ## [7.1.0](https://pypi.org/project/directory-forms-api-client/7.1.0/) (2022-08-19)
