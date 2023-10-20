@@ -133,7 +133,8 @@ def test_zendesk_action_mixin_action_class(
             },
             'spam_control': {
                 'contents': ['hello buy my goods'],
-            }
+            },
+            'sort_fields_alphabetically': True,
         }
     })
 
@@ -177,7 +178,8 @@ def test_zendesk_action_mixin_action_class_subdomain(
             },
             'spam_control': {
                 'contents': ['hello buy my goods'],
-            }
+            },
+            'sort_fields_alphabetically': True,
         }
     })
 
