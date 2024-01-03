@@ -12,6 +12,8 @@
 
 ## Requirements
 
+This library needs Python Django installed, serving as a django client library instead of a generic Python one.
+
 ## Installation
 
     $ pip install directory_forms_api_client
