@@ -15,7 +15,7 @@ setup(
     long_description_content_type='text/markdown',
     include_package_data=True,
     install_requires=[
-        'directory_client_core>=7.2.8,<8.0.0',
+        'directory_client_core>=7.2.12,<8.0.0',
     ],
     extras_require={
         'test': [
