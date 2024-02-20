@@ -1,5 +1,9 @@
 # Changelog
 
+## [7.2.3](https://pypi.org/project/directory-forms-api-client/7.2.3/) (2024-02-20)
+[Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/46)
+- KLS-1948 - Bump Django to 4.2.10 minimum
+
 ## [7.2.2](https://pypi.org/project/directory-forms-api-client/7.2.2/) (2023-07-06)
 [Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/43)
 - KLS-822 - use at lease 7.2.5 of directory-client-core
