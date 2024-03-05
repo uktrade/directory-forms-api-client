@@ -1,5 +1,9 @@
 # Changelog
 
+## [7.2.4](https://pypi.org/project/directory-forms-api-client/7.2.4/) (2024-02-27)
+[Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/47)
+- POLS-94 Add code-owners file
+
 ## [7.2.3](https://pypi.org/project/directory-forms-api-client/7.2.3/) (2024-02-20)
 [Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/46)
 - KLS-1948 - Bump Django to 4.2.10 minimum
