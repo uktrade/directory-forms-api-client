@@ -306,6 +306,52 @@ def test_gov_notify_action_no_reply_to_id(
 
 
 @pytest.mark.parametrize('classes', (
+    [forms.GovNotifyBulkEmailActionMixin, Form],
+    [forms.GovNotifyBulkEmailAPIForm]
+))
+def test_gov_notify_bulk_email_action(
+    classes, mock_action_class, form_session, spam_control, sender,
+):
+
+    class TestForm(*classes):
+        action_class = mock_action_class
+
+        title = fields.CharField()
+
+    data = {
+        'email_addresses': ['one@example.com', 'two@example.com', 'three@example.com'],
+        'template_id': '123456',
+        'title': 'some title',
+    }
+
+    form = TestForm(data)
+    assert form.is_valid()
+
+    form.save(
+        template_id=data['template_id'],
+        email_addresses=data['email_addresses'],
+        email_reply_to_id='123',
+        form_url='/the/form/',
+        form_session=form_session,
+        spam_control=spam_control,
+        sender=sender,
+    )
+
+    assert mock_action_class.call_count == 1
+    assert mock_action_class.call_args == mock.call(
+        template_id=data['template_id'],
+        email_addresses=data['email_addresses'],
+        email_reply_to_id='123',
+        form_url='/the/form/',
+        form_session=form_session,
+        spam_control=spam_control,
+        sender=sender,
+    )
+    assert mock_action_class().save.call_count == 1
+    assert mock_action_class().save.call_args == mock.call(form.cleaned_data)
+
+
+@pytest.mark.parametrize('classes', (
     [forms.PardotActionMixin, Form],
     [forms.PardotAPIForm]
 ))

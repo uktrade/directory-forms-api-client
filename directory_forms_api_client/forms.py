@@ -49,6 +49,10 @@ class GovNotifyEmailActionMixin(AbstractActionMixin):
     action_class = actions.GovNotifyEmailAction
 
 
+class GovNotifyBulkEmailActionMixin(AbstractActionMixin):
+    action_class = actions.GovNotifyBulkEmailAction
+
+
 class GovNotifyLetterActionMixin(AbstractActionMixin):
     action_class = actions.GovNotifyLetterAction
 
@@ -70,6 +74,10 @@ class ZendeskAPIForm(ZendeskActionMixin, Form):
 
 
 class GovNotifyEmailAPIForm(GovNotifyEmailActionMixin, Form):
+    pass
+
+
+class GovNotifyBulkEmailAPIForm(GovNotifyBulkEmailActionMixin, Form):
     pass
 
 

@@ -261,6 +261,83 @@ def test_gov_notify_email_action_mixin_action_class_no_reply_id(
     })
 
 
+def test_gov_notify_bulk_email_action_mixin_action_class(
+        settings, form_session, spam_control, sender
+):
+    mock_client = mock.Mock(spec_set=client.APIFormsClient)
+    action = actions.GovNotifyBulkEmailAction(
+        client=mock_client,
+        template_id='123456',
+        email_addresses=['one@example.com', 'two@example.com', 'three@example.com'],
+        email_reply_to_id='123',
+        form_url='/the/form/',
+        form_session=form_session,
+        spam_control=spam_control,
+        sender=sender,
+    )
+
+    action.save({'name': 'hello'})
+    assert mock_client.submit_generic.call_count == 1
+    assert mock_client.submit_generic.call_args == mock.call({
+        'data': {'name': 'hello'},
+        'meta': {
+            'action_name': 'gov-notify-bulk-email',
+            'template_id': '123456',
+            'email_addresses': ['one@example.com', 'two@example.com', 'three@example.com'],
+            'email_reply_to_id': '123',
+            'form_url': '/the/form/',
+            'funnel_steps': ['one', 'two'],
+            'ingress_url': 'example.com',
+            'sender': {
+                'email_address': 'foo@example.com',
+                'country_code': 'UK',
+                'ip_address': '192.168.0.1',
+            },
+            'spam_control': {
+                'contents': ['hello buy my goods'],
+            }
+        }
+    })
+
+
+def test_gov_notify_bulk_email_action_mixin_action_class_no_reply_id(
+        settings, form_session, spam_control, sender
+):
+    mock_client = mock.Mock(spec_set=client.APIFormsClient)
+    action = actions.GovNotifyBulkEmailAction(
+        client=mock_client,
+        template_id='123456',
+        email_addresses=['one@example.com', 'two@example.com', 'three@example.com'],
+        form_url='/the/form/',
+        form_session=form_session,
+        spam_control=spam_control,
+        sender=sender,
+    )
+
+    action.save({'name': 'hello'})
+
+    assert mock_client.submit_generic.call_count == 1
+    assert mock_client.submit_generic.call_args == mock.call({
+        'data': {'name': 'hello'},
+        'meta': {
+            'action_name': 'gov-notify-bulk-email',
+            'template_id': '123456',
+            'email_addresses': ['one@example.com', 'two@example.com', 'three@example.com'],
+            'form_url': '/the/form/',
+            'funnel_steps': ['one', 'two'],
+            'ingress_url': 'example.com',
+            'sender': {
+                'email_address': 'foo@example.com',
+                'country_code': 'UK',
+                'ip_address': '192.168.0.1',
+            },
+            'spam_control': {
+                'contents': ['hello buy my goods'],
+            }
+        }
+    })
+
+
 def test_pardot_action_mixin_action_class(
         settings, form_session, spam_control, sender
 ):

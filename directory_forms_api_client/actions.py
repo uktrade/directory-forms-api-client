@@ -106,6 +106,22 @@ class GovNotifyEmailAction(AbstractAction):
         super().__init__(*args, **kwargs)
 
 
+class GovNotifyBulkEmailAction(AbstractAction):
+    name = 'gov-notify-bulk-email'
+
+    def __init__(
+        self, template_id, email_addresses, email_reply_to_id=None,
+        *args, **kwargs
+    ):
+        self.meta = {
+            'template_id': template_id,
+            'email_addresses': email_addresses,
+        }
+        if email_reply_to_id:
+            self.meta['email_reply_to_id'] = email_reply_to_id
+        super().__init__(*args, **kwargs)
+
+
 class GovNotifyLetterAction(AbstractAction):
     name = 'gov-notify-letter'
 

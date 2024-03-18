@@ -8,12 +8,16 @@ from directory_client_core.base import AbstractAPIClient
 class APIFormsClient(AbstractAPIClient):
 
     endpoints = {
+        # API V1 endpoints
         'ping': 'api/healthcheck/ping/',
         'submission': 'api/submission/',
-        'delete_submissions': 'api/delete-submissions/'
+        'delete_submissions': 'api/delete-submissions/',
+        # API V2 endpoints
+        'gov_notify_bulk_email': 'api/v2/gov-notify-bulk-email/'
     }
     version = pkg_resources.get_distribution(__package__).version
 
+    # API V1
     def ping(self, authenticator=None):
         return self.get(url=self.endpoints['ping'], authenticator=authenticator)
 
@@ -23,6 +27,18 @@ class APIFormsClient(AbstractAPIClient):
     def delete_submissions(self, email_address, authenticator=None):
         endpoint = self.endpoints['delete_submissions'] + f'{email_address}/'
         return self.delete(url=endpoint, authenticator=authenticator)
+
+    # API V2
+    def gov_notify_bulk_email(self, data, authenticator=None):
+        """
+        Allows an email with multiple recipients to be sent be gov.notify.
+
+        :param data: Email meta data.
+        :param authenticator: API authenticator class (default None)
+        :return: Request object
+        """
+
+        return self.post(url=self.endpoints['gov_notify_bulk_email'], data=data, authenticator=authenticator)
 
 
 forms_api_client = APIFormsClient(

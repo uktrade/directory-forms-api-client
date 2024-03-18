@@ -63,3 +63,20 @@ class APIFormsClientTest(TestCase):
         assert APIFormsClient.version == pkg_resources.get_distribution(
             'directory-forms-api-client'
         ).version
+
+    # API V2
+    @stub_request('https://forms.com/api/v2/gov-notify-bulk-email/', 'post')
+    def test_gov_notify_bulk_email_generic(self, stub):
+        data = {'field_one': 'value_one'}
+        self.client.gov_notify_bulk_email(data)
+
+        request = stub.request_history[0]
+        assert request.json() == data
+
+    @stub_request('https://forms.com/api/v2/gov-notify-bulk-email/', 'post')
+    def test_gov_notify_bulk_email_with_authenticator(self, stub):
+        data = {'field_one': 'value_one'}
+        self.client.gov_notify_bulk_email(data)
+
+        request = stub.request_history[0]
+        assert request.json() == data
