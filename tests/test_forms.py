@@ -320,9 +320,9 @@ def test_gov_notify_bulk_email_action(
 
     data = {
         'bulk_email_entries': [
-            {'name': 'one', 'email': 'one@example.com'},
-            {'name': 'two', 'email': 'two@example.com'},
-            {'name': 'three', 'email': 'three@example.com'}
+            {'name': 'one', 'email_address': 'one@example.com'},
+            {'name': 'two', 'email_address': 'two@example.com'},
+            {'name': 'three', 'email_address': 'three@example.com'}
         ],
         'template_id': '123456',
         'title': 'some title',
