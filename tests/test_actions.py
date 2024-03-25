@@ -276,16 +276,16 @@ def test_gov_notify_bulk_email_action_mixin_action_class(
     )
 
     action.save({'bulk_email_entries': [
-        {'first_name': 'one', 'email': 'one@example.com'},
-        {'first_name': 'two', 'email': 'two@example.com'},
-        {'first_name': 'three', 'email': 'three@example.com'}
+        {'name': 'one', 'email': 'one@example.com'},
+        {'name': 'two', 'email': 'two@example.com'},
+        {'name': 'three', 'email': 'three@example.com'}
     ]})
     assert mock_client.submit_generic.call_count == 1
     assert mock_client.submit_generic.call_args == mock.call({
         'data': {'bulk_email_entries': [
-            {'first_name': 'one', 'email': 'one@example.com'},
-            {'first_name': 'two', 'email': 'two@example.com'},
-            {'first_name': 'three', 'email': 'three@example.com'}
+            {'name': 'one', 'email': 'one@example.com'},
+            {'name': 'two', 'email': 'two@example.com'},
+            {'name': 'three', 'email': 'three@example.com'}
         ]},
         'meta': {
             'action_name': 'gov-notify-bulk-email',
@@ -320,17 +320,17 @@ def test_gov_notify_bulk_email_action_mixin_action_class_no_reply_id(
     )
 
     action.save({'bulk_email_entries': [
-        {'first_name': 'one', 'email': 'one@example.com'},
-        {'first_name': 'two', 'email': 'two@example.com'},
-        {'first_name': 'three', 'email': 'three@example.com'}
+        {'name': 'one', 'email': 'one@example.com'},
+        {'name': 'two', 'email': 'two@example.com'},
+        {'name': 'three', 'email': 'three@example.com'}
     ]})
 
     assert mock_client.submit_generic.call_count == 1
     assert mock_client.submit_generic.call_args == mock.call({
         'data': {'bulk_email_entries': [
-            {'first_name': 'one', 'email': 'one@example.com'},
-            {'first_name': 'two', 'email': 'two@example.com'},
-            {'first_name': 'three', 'email': 'three@example.com'}
+            {'name': 'one', 'email': 'one@example.com'},
+            {'name': 'two', 'email': 'two@example.com'},
+            {'name': 'three', 'email': 'three@example.com'}
         ]},
         'meta': {
             'action_name': 'gov-notify-bulk-email',
