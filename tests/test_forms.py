@@ -319,7 +319,11 @@ def test_gov_notify_bulk_email_action(
         title = fields.CharField()
 
     data = {
-        'email_addresses': ['one@example.com', 'two@example.com', 'three@example.com'],
+        'bulk_email_entries': [
+            {'first_name': 'one', 'email': 'one@example.com'},
+            {'first_name': 'two', 'email': 'two@example.com'},
+            {'first_name': 'three', 'email': 'three@example.com'}
+        ],
         'template_id': '123456',
         'title': 'some title',
     }
@@ -329,7 +333,7 @@ def test_gov_notify_bulk_email_action(
 
     form.save(
         template_id=data['template_id'],
-        email_addresses=data['email_addresses'],
+        bulk_email_entries=data['bulk_email_entries'],
         email_reply_to_id='123',
         form_url='/the/form/',
         form_session=form_session,
@@ -340,7 +344,7 @@ def test_gov_notify_bulk_email_action(
     assert mock_action_class.call_count == 1
     assert mock_action_class.call_args == mock.call(
         template_id=data['template_id'],
-        email_addresses=data['email_addresses'],
+        bulk_email_entries=data['bulk_email_entries'],
         email_reply_to_id='123',
         form_url='/the/form/',
         form_session=form_session,
