@@ -268,7 +268,6 @@ def test_gov_notify_bulk_email_action_mixin_action_class(
     action = actions.GovNotifyBulkEmailAction(
         client=mock_client,
         template_id='123456',
-        email_addresses=['one@example.com', 'two@example.com', 'three@example.com'],
         email_reply_to_id='123',
         form_url='/the/form/',
         form_session=form_session,
@@ -276,14 +275,21 @@ def test_gov_notify_bulk_email_action_mixin_action_class(
         sender=sender,
     )
 
-    action.save({'name': 'hello'})
+    action.save({'bulk_email_entries': [
+        {'name': 'one', 'email': 'one@example.com'},
+        {'name': 'two', 'email': 'two@example.com'},
+        {'name': 'three', 'email': 'three@example.com'}
+    ]})
     assert mock_client.submit_generic.call_count == 1
     assert mock_client.submit_generic.call_args == mock.call({
-        'data': {'name': 'hello'},
+        'data': {'bulk_email_entries': [
+            {'name': 'one', 'email': 'one@example.com'},
+            {'name': 'two', 'email': 'two@example.com'},
+            {'name': 'three', 'email': 'three@example.com'}
+        ]},
         'meta': {
             'action_name': 'gov-notify-bulk-email',
             'template_id': '123456',
-            'email_addresses': ['one@example.com', 'two@example.com', 'three@example.com'],
             'email_reply_to_id': '123',
             'form_url': '/the/form/',
             'funnel_steps': ['one', 'two'],
@@ -307,22 +313,28 @@ def test_gov_notify_bulk_email_action_mixin_action_class_no_reply_id(
     action = actions.GovNotifyBulkEmailAction(
         client=mock_client,
         template_id='123456',
-        email_addresses=['one@example.com', 'two@example.com', 'three@example.com'],
         form_url='/the/form/',
         form_session=form_session,
         spam_control=spam_control,
         sender=sender,
     )
 
-    action.save({'name': 'hello'})
+    action.save({'bulk_email_entries': [
+        {'name': 'one', 'email': 'one@example.com'},
+        {'name': 'two', 'email': 'two@example.com'},
+        {'name': 'three', 'email': 'three@example.com'}
+    ]})
 
     assert mock_client.submit_generic.call_count == 1
     assert mock_client.submit_generic.call_args == mock.call({
-        'data': {'name': 'hello'},
+        'data': {'bulk_email_entries': [
+            {'name': 'one', 'email': 'one@example.com'},
+            {'name': 'two', 'email': 'two@example.com'},
+            {'name': 'three', 'email': 'three@example.com'}
+        ]},
         'meta': {
             'action_name': 'gov-notify-bulk-email',
             'template_id': '123456',
-            'email_addresses': ['one@example.com', 'two@example.com', 'three@example.com'],
             'form_url': '/the/form/',
             'funnel_steps': ['one', 'two'],
             'ingress_url': 'example.com',
