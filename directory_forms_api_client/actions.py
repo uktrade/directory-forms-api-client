@@ -120,6 +120,9 @@ class GovNotifyBulkEmailAction(AbstractAction):
             self.meta['email_reply_to_id'] = email_reply_to_id
         super().__init__(*args, **kwargs)
 
+    def save(self, data):
+        return self.client.gov_notify_bulk_email(data)
+
 
 class GovNotifyLetterAction(AbstractAction):
     name = 'gov-notify-letter'

@@ -280,30 +280,12 @@ def test_gov_notify_bulk_email_action_mixin_action_class(
         {'name': 'two', 'email': 'two@example.com'},
         {'name': 'three', 'email': 'three@example.com'}
     ]})
-    assert mock_client.submit_generic.call_count == 1
-    assert mock_client.submit_generic.call_args == mock.call({
-        'data': {'bulk_email_entries': [
-            {'name': 'one', 'email': 'one@example.com'},
-            {'name': 'two', 'email': 'two@example.com'},
-            {'name': 'three', 'email': 'three@example.com'}
-        ]},
-        'meta': {
-            'action_name': 'gov-notify-bulk-email',
-            'template_id': '123456',
-            'email_reply_to_id': '123',
-            'form_url': '/the/form/',
-            'funnel_steps': ['one', 'two'],
-            'ingress_url': 'example.com',
-            'sender': {
-                'email_address': 'foo@example.com',
-                'country_code': 'UK',
-                'ip_address': '192.168.0.1',
-            },
-            'spam_control': {
-                'contents': ['hello buy my goods'],
-            }
-        }
-    })
+    assert mock_client.gov_notify_bulk_email.call_count == 1
+    assert mock_client.gov_notify_bulk_email.call_args == mock.call({'bulk_email_entries': [
+        {'name': 'one', 'email': 'one@example.com'},
+        {'name': 'two', 'email': 'two@example.com'},
+        {'name': 'three', 'email': 'three@example.com'}
+    ]})
 
 
 def test_gov_notify_bulk_email_action_mixin_action_class_no_reply_id(
@@ -319,34 +301,21 @@ def test_gov_notify_bulk_email_action_mixin_action_class_no_reply_id(
         sender=sender,
     )
 
-    action.save({'bulk_email_entries': [
-        {'name': 'one', 'email': 'one@example.com'},
-        {'name': 'two', 'email': 'two@example.com'},
-        {'name': 'three', 'email': 'three@example.com'}
-    ]})
-
-    assert mock_client.submit_generic.call_count == 1
-    assert mock_client.submit_generic.call_args == mock.call({
-        'data': {'bulk_email_entries': [
+    action.save({
+        'template_id': 'abc123',
+        'bulk_email_entries': [
             {'name': 'one', 'email': 'one@example.com'},
             {'name': 'two', 'email': 'two@example.com'},
-            {'name': 'three', 'email': 'three@example.com'}
-        ]},
-        'meta': {
-            'action_name': 'gov-notify-bulk-email',
-            'template_id': '123456',
-            'form_url': '/the/form/',
-            'funnel_steps': ['one', 'two'],
-            'ingress_url': 'example.com',
-            'sender': {
-                'email_address': 'foo@example.com',
-                'country_code': 'UK',
-                'ip_address': '192.168.0.1',
-            },
-            'spam_control': {
-                'contents': ['hello buy my goods'],
-            }
-        }
+            {'name': 'three', 'email': 'three@example.com'}]
+    })
+
+    assert mock_client.gov_notify_bulk_email.call_count == 1
+    assert mock_client.gov_notify_bulk_email.call_args == mock.call({
+        'template_id': 'abc123',
+        'bulk_email_entries': [
+            {'name': 'one', 'email': 'one@example.com'},
+            {'name': 'two', 'email': 'two@example.com'},
+            {'name': 'three', 'email': 'three@example.com'}]
     })
 
 
