@@ -22,6 +22,10 @@ class SaveOnlyInDatabaseActionMixin(AbstractActionMixin):
     action_class = actions.SaveOnlyInDatabaseAction
 
 
+class HCSatActionMixin(AbstractActionMixin):
+    action_class = actions.HCSatAction
+
+
 class EmailActionMixin(AbstractActionMixin):
     action_class = actions.EmailAction
 
@@ -62,6 +66,10 @@ class PardotActionMixin(AbstractActionMixin):
 
 
 class SaveOnlyInDatabaseAPIForm(SaveOnlyInDatabaseActionMixin, Form):
+    pass
+
+
+class HCSatAPIForm(HCSatActionMixin, Form):
     pass
 
 

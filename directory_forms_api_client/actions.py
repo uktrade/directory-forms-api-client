@@ -5,10 +5,7 @@ from directory_forms_api_client.client import forms_api_client
 
 class AbstractAction(abc.ABC):
 
-    def __init__(
-        self, form_url, client=forms_api_client, form_session=None,
-        sender=None, spam_control=None
-    ):
+    def __init__(self, form_url, client=forms_api_client, form_session=None, sender=None, spam_control=None):
         self.form_url = form_url
         self.client = client
         self.form_session = form_session
@@ -21,10 +18,7 @@ class AbstractAction(abc.ABC):
         return ''
 
     def serialize_data(self, data):
-        return {
-            'data': data,
-            'meta': self.serialize_meta()
-        }
+        return {'data': data, 'meta': self.serialize_meta()}
 
     def serialize_meta(self):
         meta = {
@@ -39,7 +33,11 @@ class AbstractAction(abc.ABC):
             meta['ingress_url'] = self.form_session.ingress_url
         return meta
 
-    def save(self, data, form_session=None,):
+    def save(
+        self,
+        data,
+        form_session=None,
+    ):
         serialized_data = self.serialize_data(data)
         return self.client.submit_generic(serialized_data)
 
@@ -52,7 +50,44 @@ class SaveOnlyInDatabaseAction(AbstractAction):
             'full_name': full_name,
             'email_address': email_address,
             'subject': subject,
-            'recipient_email': email_address
+            'recipient_email': email_address,
+        }
+        super().__init__(*args, **kwargs)
+
+
+class HCSatAction(AbstractAction):
+    name = 'hcsat-submission'
+
+    def __init__(
+        self,
+        id,
+        feedback_submission_date,
+        url,
+        user_journey,
+        satisfaction_rating,
+        experienced_issues,
+        other_detail,
+        service_improvements_feedback,
+        likelihood_of_return,
+        service_name,
+        service_specific_feedback,
+        service_specific_feedback_other,
+        *args,
+        **kwargs,
+    ):
+        self.meta = {
+            'id': id,
+            'feedback_submission_date': feedback_submission_date,
+            'url': url,
+            'user_journey': user_journey,
+            'satisfaction_rating': satisfaction_rating,
+            'experienced_issues': experienced_issues,
+            'other_detail': other_detail,
+            'service_improvements_feedback': service_improvements_feedback,
+            'likelihood_of_return': likelihood_of_return,
+            'service_name': service_name,
+            'service_specific_feedback': service_specific_feedback,
+            'service_specific_feedback_other': service_specific_feedback_other,
         }
         super().__init__(*args, **kwargs)
 
@@ -74,15 +109,22 @@ class ZendeskAction(AbstractAction):
     name = 'zendesk'
 
     def __init__(
-        self, subject, full_name, email_address, service_name, subdomain=None, sort_fields_alphabetically=True,
-        *args, **kwargs
+        self,
+        subject,
+        full_name,
+        email_address,
+        service_name,
+        subdomain=None,
+        sort_fields_alphabetically=True,
+        *args,
+        **kwargs,
     ):
         self.meta = {
             'full_name': full_name,
             'email_address': email_address,
             'subject': subject,
             'service_name': service_name,
-            'sort_fields_alphabetically': sort_fields_alphabetically
+            'sort_fields_alphabetically': sort_fields_alphabetically,
         }
         # if empty Forms API will use the default configured zendesk subdomain
         if subdomain:
@@ -93,10 +135,7 @@ class ZendeskAction(AbstractAction):
 class GovNotifyEmailAction(AbstractAction):
     name = 'gov-notify-email'
 
-    def __init__(
-        self, template_id, email_address, email_reply_to_id=None,
-        *args, **kwargs
-    ):
+    def __init__(self, template_id, email_address, email_reply_to_id=None, *args, **kwargs):
         self.meta = {
             'template_id': template_id,
             'email_address': email_address,
@@ -109,13 +148,8 @@ class GovNotifyEmailAction(AbstractAction):
 class GovNotifyBulkEmailAction(AbstractAction):
     name = 'gov-notify-bulk-email'
 
-    def __init__(
-        self, template_id, email_reply_to_id=None,
-        *args, **kwargs
-    ):
-        self.meta = {
-            'template_id': template_id
-        }
+    def __init__(self, template_id, email_reply_to_id=None, *args, **kwargs):
+        self.meta = {'template_id': template_id}
         if email_reply_to_id:
             self.meta['email_reply_to_id'] = email_reply_to_id
         super().__init__(*args, **kwargs)

@@ -1,5 +1,9 @@
 # Changelog
 
+## [7.5.0](https://pypi.org/project/directory-forms-api-client/7.5.0/) (2025-01-31)
+[Full Changelog]()
+- GREATUK-1599 add HCSat feedback action
+
 ## [7.2.4](https://pypi.org/project/directory-forms-api-client/7.2.4/) (2024-02-27)
 [Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/47)
 - POLS-94 Add code-owners file
