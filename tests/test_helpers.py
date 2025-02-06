@@ -1,7 +1,7 @@
 import pytest
-
-from django.views import View
 from django.http import HttpResponse
+from django.views import View
+
 from directory_forms_api_client import helpers
 
 

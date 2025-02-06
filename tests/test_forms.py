@@ -1,7 +1,8 @@
+from datetime import datetime
 from unittest import mock
 
 import pytest
-
+from django.contrib.postgres.fields import ArrayField
 from django.forms import Form, fields
 
 from directory_forms_api_client import actions, forms, helpers
@@ -427,6 +428,80 @@ def test_gov_notify_letter_action(
     assert mock_action_class.call_count == 1
     assert mock_action_class.call_args == mock.call(
         template_id=data['template_id'],
+        form_url='/the/form/',
+        form_session=form_session,
+        spam_control=spam_control,
+        sender=sender,
+    )
+    assert mock_action_class().save.call_count == 1
+    assert mock_action_class().save.call_args == mock.call(form.cleaned_data)
+
+
+@pytest.mark.parametrize('classes', (
+    [forms.HCSatActionMixin, Form],
+    [forms.HCSatAPIForm]
+))
+def test_hcsat_submission_action(
+    classes, mock_action_class, form_session, spam_control, sender,
+):
+
+    experienced_issues_choices = (
+        ('NOT_FIND_LOOKING_FOR', 'I did not find what I was looking for'),
+        ('DIFFICULT_TO_NAVIGATE', 'I found it difficult to navigate the service'),
+        ('SYSTEM_LACKS_FEATURE', 'The service lacks the feature I need'),
+        ('UNABLE_TO_LOAD/REFRESH/ENTER', 'I was unable to load/refresh/enter a page'),
+        ('OTHER', 'Other'),
+        ('NO_ISSUE', 'I did not experience any issues'),
+    )
+
+    class TestForm(*classes):
+        action_class = mock_action_class
+
+        id = fields.IntegerField()
+        URL = fields.CharField()
+        user_journey = fields.CharField()
+        satisfaction_rating = fields.CharField()
+        experienced_issues = ArrayField(
+            fields.CharField(max_length=255), size=6, default=list, null=True
+        )
+        other_detail = fields.CharField()
+        service_improvements_feedback = fields.CharField()
+        likelihood_of_return = fields.CharField()
+        service_name = fields.CharField()
+        service_specific_feedback = ArrayField(
+            fields.CharField(max_length=255), size=10, default=list, null=True, blank=True
+        )
+        service_specific_feedback_other = fields.CharField()
+
+    dtm = datetime.now()
+
+    data = {
+        'id': 1,
+        'feedback_submission_date': dtm,
+        'URL': '/export-academy/events/',
+        'user_journey': 'Event booking',
+        'satisfaction_rating': 'Very satisfied',
+        'experienced_issues': experienced_issues_choices[0],
+        'other_detail': 'All Great',
+        'service_improvements_feedback': 'Its Perfect',
+        'likelihood_of_return': 'Extremely likely',
+        'service_name': 'export-academy',
+        'service_specific_feedback': ['None', ],
+        'service_specific_feedback_other': 'Nothing',
+        }
+
+    form = TestForm(data)
+    assert form.is_valid()
+
+    form.save(
+        form_url='/the/form/',
+        form_session=form_session,
+        spam_control=spam_control,
+        sender=sender,
+    )
+
+    assert mock_action_class.call_count == 1
+    assert mock_action_class.call_args == mock.call(
         form_url='/the/form/',
         form_session=form_session,
         spam_control=spam_control,

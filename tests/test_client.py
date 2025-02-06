@@ -1,9 +1,9 @@
+from unittest import TestCase
+
 import pkg_resources
 
 from directory_forms_api_client.client import APIFormsClient
-
 from tests import basic_authenticator, stub_request
-from unittest import TestCase
 
 
 class APIFormsClientTest(TestCase):
