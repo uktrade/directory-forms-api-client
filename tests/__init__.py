@@ -19,9 +19,9 @@ def stub_request(url, http_method, status_code=200):
 
 class BasicAuthenticator:
     def __init__(self, username: str, password: str):
-        credentials = f"{username}:{password}"
-        encoded_credentials = base64.b64encode(credentials.encode("ascii"))
-        self.headers = {"Authorization": f"Basic {encoded_credentials.decode('ascii')}"}
+        credentials = f'{username}:{password}'
+        encoded_credentials = base64.b64encode(credentials.encode('ascii'))
+        self.headers = {'Authorization': f"Basic {encoded_credentials.decode('ascii')}"}
 
 
-basic_authenticator = BasicAuthenticator("user", "password")
+basic_authenticator = BasicAuthenticator('user', 'password')

@@ -419,31 +419,31 @@ def test_hcsat_submission_action_mixin_action_class(settings, form_session, spam
         form_url='/the/form/',
         form_session=form_session,
         spam_control=spam_control,
-        id=1,
-        feedback_submission_date=dtm,
-        url='/export-academy/events/',
-        user_journey='Event booking',
-        satisfaction_rating='Very satisfied',
-        experienced_issues='I did not experience any issues',
-        other_detail='All Great',
-        service_improvements_feedback='Its Perfect',
-        likelihood_of_return='Extremely likely',
-        service_name='export-academy',
-        service_specific_feedback=['None'],
-        service_specific_feedback_other='Nothing',
+        sender=sender,
     )
 
-    action.save({'field_one': 'value one', 'field_two': 'value two'})
+    data = {
+        'id': 1,
+        'feedback_submission_date': dtm,
+        'url': '/export-academy/events/',
+        'user_journey': 'Event booking',
+        'satisfaction_rating': 'Very satisfied',
+        'experienced_issues': 'I did not experience any issues',
+        'other_detail': 'All Great',
+        'service_improvements_feedback': 'Its Perfect',
+        'likelihood_of_return': 'Extremely likely',
+        'service_name': 'export-academy',
+        'service_specific_feedback': ['None'],
+        'service_specific_feedback_other': 'Nothing',
+    }
+
+    action.save(data)
 
     assert mock_client.submit_generic.call_count == 1
+
     assert mock_client.submit_generic.call_args == mock.call(
         {
-            'data': {'field_one': 'value one', 'field_two': 'value two'},
-            'meta': {
-                'action_name': 'hcsat-submission',
-                'form_url': '/the/form/',
-                'sender': {},
-                'spam_control': {'contents': ['hello buy my goods']},
+            'data': {
                 'id': 1,
                 'feedback_submission_date': dtm,
                 'url': '/export-academy/events/',
@@ -456,6 +456,12 @@ def test_hcsat_submission_action_mixin_action_class(settings, form_session, spam
                 'service_name': 'export-academy',
                 'service_specific_feedback': ['None'],
                 'service_specific_feedback_other': 'Nothing',
+            },
+            'meta': {
+                'action_name': 'hcsat-submission',
+                'form_url': '/the/form/',
+                'sender': {'email_address': 'foo@example.com', 'country_code': 'UK', 'ip_address': '192.168.0.1'},
+                'spam_control': {'contents': ['hello buy my goods']},
                 'funnel_steps': ['one', 'two'],
                 'ingress_url': 'example.com',
             },

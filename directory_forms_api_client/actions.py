@@ -60,35 +60,10 @@ class HCSatAction(AbstractAction):
 
     def __init__(
         self,
-        id,
-        feedback_submission_date,
-        url,
-        user_journey,
-        satisfaction_rating,
-        experienced_issues,
-        other_detail,
-        service_improvements_feedback,
-        likelihood_of_return,
-        service_name,
-        service_specific_feedback,
-        service_specific_feedback_other,
         *args,
         **kwargs,
     ):
-        self.meta = {
-            'id': id,
-            'feedback_submission_date': feedback_submission_date,
-            'url': url,
-            'user_journey': user_journey,
-            'satisfaction_rating': satisfaction_rating,
-            'experienced_issues': experienced_issues,
-            'other_detail': other_detail,
-            'service_improvements_feedback': service_improvements_feedback,
-            'likelihood_of_return': likelihood_of_return,
-            'service_name': service_name,
-            'service_specific_feedback': service_specific_feedback,
-            'service_specific_feedback_other': service_specific_feedback_other,
-        }
+        self.meta = {}
         super().__init__(*args, **kwargs)
 
 
