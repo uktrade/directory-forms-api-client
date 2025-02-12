@@ -63,7 +63,7 @@ class HCSatAction(AbstractAction):
         super().__init__(*args, **kwargs)
 
     def save(self, data):
-        return super().save(data)
+        return self.client.hcsat_feedback_submission(data)
 
 
 # To be deprecated - DO NOT USE EmailAction Use GovNotifyEmailAction
