@@ -58,13 +58,12 @@ class SaveOnlyInDatabaseAction(AbstractAction):
 class HCSatAction(AbstractAction):
     name = 'hcsat-submission'
 
-    def __init__(
-        self,
-        *args,
-        **kwargs,
-    ):
+    def __init__(self, *args, **kwargs):
         self.meta = {}
         super().__init__(*args, **kwargs)
+
+    def save(self, data):
+        return super().save(data)
 
 
 # To be deprecated - DO NOT USE EmailAction Use GovNotifyEmailAction

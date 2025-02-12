@@ -1,5 +1,9 @@
 # Changelog
 
+## [7.5.1](https://pypi.org/project/directory-forms-api-client/7.5.1/) (2025-02-12)
+[Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/52)
+- GREATUK-1599 modified HCSat feedback action
+
 ## [7.5.0](https://pypi.org/project/directory-forms-api-client/7.5.0/) (2025-01-31)
 [Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/51)
 - GREATUK-1599 add HCSat feedback action
