@@ -56,7 +56,7 @@ class SaveOnlyInDatabaseAction(AbstractAction):
 
 
 class HCSatAction(AbstractAction):
-    name = 'hcsat-submission'
+    name = 'hcsat-feedback-submission'
 
     def __init__(self, *args, **kwargs):
         self.meta = {}

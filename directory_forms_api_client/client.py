@@ -40,7 +40,7 @@ class APIFormsClient(AbstractAPIClient):
         """
 
         return self.post(url=self.endpoints['gov_notify_bulk_email'], data=data, authenticator=authenticator)
-    
+
     def hcsat_feedback_submission(self, data, authenticator=None):
         return self.post(url=self.endpoints['hcsat_feedback_submission'], data=data, authenticator=authenticator)
 
