@@ -13,7 +13,8 @@ class APIFormsClient(AbstractAPIClient):
         'submission': 'api/submission/',
         'delete_submissions': 'api/delete-submissions/',
         # API V2 endpoints
-        'gov_notify_bulk_email': 'api/v2/gov-notify-bulk-email/'
+        'gov_notify_bulk_email': 'api/v2/gov-notify-bulk-email/',
+        'hcsat_feedback_submission': 'api/v2/hcsat-feedback-submission/',
     }
     version = pkg_resources.get_distribution(__package__).version
 
@@ -39,6 +40,9 @@ class APIFormsClient(AbstractAPIClient):
         """
 
         return self.post(url=self.endpoints['gov_notify_bulk_email'], data=data, authenticator=authenticator)
+
+    def hcsat_feedback_submission(self, data, authenticator=None):
+        return self.post(url=self.endpoints['hcsat_feedback_submission'], data=data, authenticator=authenticator)
 
 
 forms_api_client = APIFormsClient(

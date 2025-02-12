@@ -411,7 +411,7 @@ def test_gov_notify_letter_action_mixin_action_class(
     )
 
 
-def test_hcsat_submission_action_mixin_action_class(settings, form_session, spam_control, sender):
+def test_hcsat_submission_action_mixin_action_class(form_session, spam_control, sender):
     mock_client = mock.Mock(spec_set=client.APIFormsClient)
     dtm = datetime.now()
     action = actions.HCSatAction(
@@ -423,27 +423,8 @@ def test_hcsat_submission_action_mixin_action_class(settings, form_session, spam
     )
 
     data = {
-        'id': 1,
-        'feedback_submission_date': dtm,
-        'url': '/export-academy/events/',
-        'user_journey': 'Event booking',
-        'satisfaction_rating': 'Very satisfied',
-        'experienced_issues': 'I did not experience any issues',
-        'other_detail': 'All Great',
-        'service_improvements_feedback': 'Its Perfect',
-        'likelihood_of_return': 'Extremely likely',
-        'service_name': 'export-academy',
-        'service_specific_feedback': ['None'],
-        'service_specific_feedback_other': 'Nothing',
-    }
-
-    action.save(data)
-
-    assert mock_client.submit_generic.call_count == 1
-
-    assert mock_client.submit_generic.call_args == mock.call(
-        {
-            'data': {
+        'hcsat_feedback_entries': [
+            {
                 'id': 1,
                 'feedback_submission_date': dtm,
                 'url': '/export-academy/events/',
@@ -457,13 +438,58 @@ def test_hcsat_submission_action_mixin_action_class(settings, form_session, spam
                 'service_specific_feedback': ['None'],
                 'service_specific_feedback_other': 'Nothing',
             },
-            'meta': {
-                'action_name': 'hcsat-submission',
-                'form_url': '/the/form/',
-                'sender': {'email_address': 'foo@example.com', 'country_code': 'UK', 'ip_address': '192.168.0.1'},
-                'spam_control': {'contents': ['hello buy my goods']},
-                'funnel_steps': ['one', 'two'],
-                'ingress_url': 'example.com',
+            {
+                'id': 2,
+                'feedback_submission_date': dtm,
+                'url': '/export-academy/events/',
+                'user_journey': 'Event booking',
+                'satisfaction_rating': 'Very satisfied',
+                'experienced_issues': 'I did not experience any issues',
+                'other_detail': 'All Great',
+                'service_improvements_feedback': 'Its Perfect',
+                'likelihood_of_return': 'Extremely likely',
+                'service_name': 'export-academy',
+                'service_specific_feedback': ['None'],
+                'service_specific_feedback_other': 'Nothing',
             },
+        ]
+    }
+
+    action.save(data)
+
+    assert mock_client.hcsat_feedback_submission.call_count == 1
+
+    assert mock_client.hcsat_feedback_submission.call_args == mock.call(
+        {
+            'hcsat_feedback_entries': [
+                {
+                    'id': 1,
+                    'feedback_submission_date': dtm,
+                    'url': '/export-academy/events/',
+                    'user_journey': 'Event booking',
+                    'satisfaction_rating': 'Very satisfied',
+                    'experienced_issues': 'I did not experience any issues',
+                    'other_detail': 'All Great',
+                    'service_improvements_feedback': 'Its Perfect',
+                    'likelihood_of_return': 'Extremely likely',
+                    'service_name': 'export-academy',
+                    'service_specific_feedback': ['None'],
+                    'service_specific_feedback_other': 'Nothing',
+                },
+                {
+                    'id': 2,
+                    'feedback_submission_date': dtm,
+                    'url': '/export-academy/events/',
+                    'user_journey': 'Event booking',
+                    'satisfaction_rating': 'Very satisfied',
+                    'experienced_issues': 'I did not experience any issues',
+                    'other_detail': 'All Great',
+                    'service_improvements_feedback': 'Its Perfect',
+                    'likelihood_of_return': 'Extremely likely',
+                    'service_name': 'export-academy',
+                    'service_specific_feedback': ['None'],
+                    'service_specific_feedback_other': 'Nothing',
+                },
+            ]
         }
     )
