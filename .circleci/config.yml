@@ -1,10 +1,11 @@
-version: 2
+version: 2.1
 jobs:
   test:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.13.7
     steps:
       - checkout
+      - configure_ssh_key_for_private_repos
       - run:
           command: |
             python3 -m venv .venv
@@ -14,9 +15,10 @@ jobs:
             make test -- --codecov-token=${CODECOV_TOKEN}
   publish_to_pypi:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.13.7
     steps:
       - checkout
+      - configure_ssh_key_for_private_repos
       - run:
           command: |
             python3 -m venv .venv
@@ -24,6 +26,21 @@ jobs:
             pip install --upgrade pip
             make test_requirements
             make publish
+
+commands:
+  configure_ssh_key_for_private_repos:
+    description: Configure SSH key to fetch private repos
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:eYF2ykLm9ydVp/MvrIrChz8owWvSTRBrduD4SMGl+ok"
+      - run:
+          name: Force use of new SSH key
+          command: |
+            ssh-add -D
+            rm ~/.ssh/id_rsa
+            rm ~/.ssh/id_rsa.pub
+            ssh-add ~/.ssh/id_*
 
 workflows:
   version: 2

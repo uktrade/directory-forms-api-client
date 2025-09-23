@@ -5,7 +5,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='directory_forms_api_client',
-    version='7.5.1',
+    version='7.5.2',
     url='https://github.com/uktrade/directory-forms-api-client',
     license='MIT',
     author='Department for International Trade',
@@ -20,18 +20,18 @@ setup(
     extras_require={
         'test': [
             'django>=4.2.10,<5.0',
-            'flake8==3.8.3',
+            'flake8',
             'pytest-codecov',
             'pytest-cov',
             'GitPython',
             'pytest-django==3.10.0',
-            'pytest==6.1.0',
+            'pytest',
             'requests>=2.22.0,<3.0.0',
             'requests_mock==1.8.0',
-            'setuptools>=45.2.0,<50.0.0',
+            'setuptools',
             'twine',
             'wheel>=0.34.2,<1.0.0',
-            'psycopg2==2.9.9',
+            'psycopg2',
         ]
     },
     classifiers=[
@@ -50,6 +50,7 @@ setup(
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.13',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
 )
