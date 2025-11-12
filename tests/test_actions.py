@@ -528,4 +528,3 @@ def test_unverified_reminder_action_mixin_action_class(
             },
         }
     )
-

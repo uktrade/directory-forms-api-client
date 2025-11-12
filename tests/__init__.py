@@ -13,7 +13,9 @@ def stub_request(url, http_method, status_code=200):
                 mocked_method(url, status_code=status_code)
                 args += (mock,)
                 return func(*args, **kwargs)
+
         return wrapper
+
     return decorator
 
 
