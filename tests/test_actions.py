@@ -514,13 +514,14 @@ def test_unverified_reminder_action_mixin_action_class(
     }
     action.save(data)
 
-    assert mock_client.submit_generic.call_count == 1
-    assert mock_client.submit_generic.call_args == mock.call(
+    assert mock_client.verification_reminders.call_count == 1
+    assert mock_client.verification_reminders.call_args == mock.call(
         {
             'data': data,
             'meta': {
                 'action_name': 'verification_reminders',
                 'template_id': '123456',
+                'email_address': 'test@test.com',
                 'form_url': '/the/form/',
                 'funnel_steps': ['one', 'two'],
                 'ingress_url': 'example.com',
