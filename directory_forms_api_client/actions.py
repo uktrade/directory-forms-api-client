@@ -165,4 +165,5 @@ class UnverifiedReminderAction(AbstractAction):
         super().__init__(*args, **kwargs)
 
     def save(self, data):
-        return self.client.verification_reminders(data)
+        serialized_data = self.serialize_data(data)
+        return self.client.verification_reminders(serialized_data)
