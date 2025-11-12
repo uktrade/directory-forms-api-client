@@ -527,7 +527,6 @@ def test_unverified_reminder_action_mixin_action_class(
                 'sender': {},
                 'spam_control': {},
                 'template_id': '123456',
-                'email_address': 'test@test.com',
                 'funnel_steps': ['one', 'two'],
                 'ingress_url': 'example.com'
             }

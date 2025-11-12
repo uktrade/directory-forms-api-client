@@ -155,10 +155,9 @@ class PardotAction(AbstractAction):
 class UnverifiedReminderAction(AbstractAction):
     name = 'verification-reminders'
 
-    def __init__(self, template_id, email_address, email_reply_to_id=None, *args, **kwargs):
+    def __init__(self, template_id, email_reply_to_id=None, *args, **kwargs):
         self.meta = {
             'template_id': template_id,
-            'email_address': email_address,
         }
         if email_reply_to_id:
             self.meta['email_reply_to_id'] = email_reply_to_id
