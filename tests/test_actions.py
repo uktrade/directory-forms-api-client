@@ -503,7 +503,6 @@ def test_unverified_reminder_action_mixin_action_class(
     action = actions.UnverifiedReminderAction(
         client=mock_client,
         template_id='123456',
-        email_address='test@test.com',
         form_url='/the/form/',
         form_session=form_session,
     )
