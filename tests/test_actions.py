@@ -517,16 +517,19 @@ def test_unverified_reminder_action_mixin_action_class(
     assert mock_client.verification_reminders.call_count == 1
     assert mock_client.verification_reminders.call_args == mock.call(
         {
-            'data': data,
-            'meta': {
-                'action_name': 'verification_reminders',
-                'template_id': '123456',
+            'data': {
                 'email_address': 'test@test.com',
+                'deletion_date': dtm
+            }, 
+            'meta': {
+                'action_name': 'verification-reminders',
                 'form_url': '/the/form/',
-                'funnel_steps': ['one', 'two'],
-                'ingress_url': 'example.com',
                 'sender': {},
                 'spam_control': {},
-            },
+                'template_id': '123456',
+                'email_address': 'test@test.com',
+                'funnel_steps': ['one', 'two'], 
+                'ingress_url': 'example.com'
+            }
         }
     )
