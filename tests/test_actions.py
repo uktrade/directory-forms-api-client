@@ -520,7 +520,7 @@ def test_unverified_reminder_action_mixin_action_class(
             'data': {
                 'email_address': 'test@test.com',
                 'deletion_date': dtm
-            }, 
+            },
             'meta': {
                 'action_name': 'verification-reminders',
                 'form_url': '/the/form/',
@@ -528,7 +528,7 @@ def test_unverified_reminder_action_mixin_action_class(
                 'spam_control': {},
                 'template_id': '123456',
                 'email_address': 'test@test.com',
-                'funnel_steps': ['one', 'two'], 
+                'funnel_steps': ['one', 'two'],
                 'ingress_url': 'example.com'
             }
         }
