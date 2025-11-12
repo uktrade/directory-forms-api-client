@@ -25,6 +25,8 @@ class SaveOnlyInDatabaseActionMixin(AbstractActionMixin):
 class HCSatActionMixin(AbstractActionMixin):
     action_class = actions.HCSatAction
 
+class UnverifiedReminderActionMixin(AbstractActionMixin):
+    action_class = actions.UnverifiedReminderAction
 
 class EmailActionMixin(AbstractActionMixin):
     action_class = actions.EmailAction
@@ -70,6 +72,9 @@ class SaveOnlyInDatabaseAPIForm(SaveOnlyInDatabaseActionMixin, Form):
 
 
 class HCSatAPIForm(HCSatActionMixin, Form):
+    pass
+
+class UnverifiedRemindersAPIForm(UnverifiedReminderActionMixin, Form):
     pass
 
 

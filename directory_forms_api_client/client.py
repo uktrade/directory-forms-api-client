@@ -15,6 +15,7 @@ class APIFormsClient(AbstractAPIClient):
         # API V2 endpoints
         'gov_notify_bulk_email': 'api/v2/gov-notify-bulk-email/',
         'hcsat_feedback_submission': 'api/v2/hcsat-feedback-submission/',
+        'verification_reminders': 'api/v2/verification-reminders', 
     }
     version = pkg_resources.get_distribution(__package__).version
 
@@ -43,6 +44,9 @@ class APIFormsClient(AbstractAPIClient):
 
     def hcsat_feedback_submission(self, data, authenticator=None):
         return self.post(url=self.endpoints['hcsat_feedback_submission'], data=data, authenticator=authenticator)
+    
+    def verification_reminders(self, data, authenticator=None):
+        return self.post(url=self.endpoints['verification_reminders'], data=data, authenticator=authenticator)
 
 
 forms_api_client = APIFormsClient(

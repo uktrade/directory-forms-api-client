@@ -509,3 +509,42 @@ def test_hcsat_submission_action(
     )
     assert mock_action_class().save.call_count == 1
     assert mock_action_class().save.call_args == mock.call(form.cleaned_data)
+
+
+@pytest.mark.parametrize('classes', (
+    [forms.UnverifiedReminderActionMixin, Form],
+    [forms.UnverifiedRemindersAPIForm]
+))
+def test_unverified_reminders_action(
+    classes, mock_action_class, form_session, spam_control, sender,
+):
+
+    class TestForm(*classes):
+        action_class = mock_action_class
+
+    data = {
+        'template_id': '123456',
+    }
+
+    form = TestForm(data)
+    assert form.is_valid()
+
+    form.save(
+        template_id=data['template_id'],
+        form_url='/the/form/',
+        form_session=form_session,
+        spam_control=spam_control,
+        sender=sender,
+    )
+
+    assert mock_action_class.call_count == 1
+    assert mock_action_class.call_args == mock.call(
+        template_id=data['template_id'],
+        form_url='/the/form/',
+        form_session=form_session,
+        spam_control=spam_control,
+        sender=sender,
+    )
+    assert mock_action_class().save.call_count == 1
+    assert mock_action_class().save.call_args == mock.call(form.cleaned_data)
+
