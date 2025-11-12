@@ -150,3 +150,19 @@ class PardotAction(AbstractAction):
             'pardot_url': pardot_url,
         }
         super().__init__(*args, **kwargs)
+
+
+class UnverifiedReminderAction(AbstractAction):
+    name = 'verification-reminders'
+
+    def __init__(self, template_id, email_reply_to_id=None, *args, **kwargs):
+        self.meta = {
+            'template_id': template_id,
+        }
+        if email_reply_to_id:
+            self.meta['email_reply_to_id'] = email_reply_to_id
+        super().__init__(*args, **kwargs)
+
+    def save(self, data):
+        serialized_data = self.serialize_data(data)
+        return self.client.verification_reminders(serialized_data)

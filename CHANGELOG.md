@@ -1,6 +1,9 @@
 # Changelog
+## [7.5.3](https://pypi.org/project/directory-forms-api-client/7.5.3/) (2025-11-12)
+[Full Changelog](http://github.com/uktrade/directory-forms-api-client/pull/54)
+- PLOPS-3030 Added Verificaiton Reminder action and endpoint
 
-## [7.5.2](https://pypi.org/project/directory-forms-api-client/7.5.1/) (2025-09-23)
+## [7.5.2](https://pypi.org/project/directory-forms-api-client/7.5.2/) (2025-09-23)
 [Full Changelog](https://github.com/uktrade/directory-forms-api-client/pull/53)
 - PLOPS-2750 Bumped python
 

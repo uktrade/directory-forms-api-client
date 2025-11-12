@@ -493,3 +493,41 @@ def test_hcsat_submission_action_mixin_action_class(form_session, spam_control, 
             ]
         }
     )
+
+
+def test_unverified_reminder_action_mixin_action_class(
+    settings,
+    form_session,
+):
+    mock_client = mock.Mock(spec_set=client.APIFormsClient)
+    action = actions.UnverifiedReminderAction(
+        client=mock_client,
+        template_id='123456',
+        form_url='/the/form/',
+        form_session=form_session,
+    )
+    dtm = datetime.now()
+    data = {
+        'email_address': 'test@test.com',
+        'deletion_date': dtm,
+    }
+    action.save(data)
+
+    assert mock_client.verification_reminders.call_count == 1
+    assert mock_client.verification_reminders.call_args == mock.call(
+        {
+            'data': {
+                'email_address': 'test@test.com',
+                'deletion_date': dtm
+            },
+            'meta': {
+                'action_name': 'verification-reminders',
+                'form_url': '/the/form/',
+                'sender': {},
+                'spam_control': {},
+                'template_id': '123456',
+                'funnel_steps': ['one', 'two'],
+                'ingress_url': 'example.com'
+            }
+        }
+    )

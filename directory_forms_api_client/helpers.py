@@ -1,8 +1,6 @@
 class Sender(dict):
     def __init__(self, email_address, country_code=None, ip_address=None):
-        super().__init__(
-            email_address=email_address, country_code=country_code, ip_address=ip_address
-        )
+        super().__init__(email_address=email_address, country_code=country_code, ip_address=ip_address)
 
 
 class SpamControl(dict):

@@ -94,9 +94,7 @@ class FormSessionView(helpers.FormSessionMixin, MyView):
 def test_form_session_mixin(session_request):
     response = FormSessionView.as_view()(session_request)
 
-    assert isinstance(
-        response.form_session, FormSessionView.form_session_class
-    )
+    assert isinstance(response.form_session, FormSessionView.form_session_class)
 
 
 def test_form_ingress_url_mixin_set_if_http_referer(rf, client):

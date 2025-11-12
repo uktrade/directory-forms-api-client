@@ -46,8 +46,7 @@ class APIFormsClientTest(TestCase):
 
     @stub_request('https://forms.com/api/delete-submissions/test@gmail.com/', 'delete')
     def test_delete_form_with_authenticator(self, stub):
-        self.client.delete_submissions(
-            email_address='test@gmail.com', authenticator=basic_authenticator)
+        self.client.delete_submissions(email_address='test@gmail.com', authenticator=basic_authenticator)
 
         request = stub.request_history[0]
         assert 'Authorization' in request.headers
@@ -60,9 +59,7 @@ class APIFormsClientTest(TestCase):
         assert self.client.request_signer.sender_id == 'test'
 
     def test_version(self):
-        assert APIFormsClient.version == pkg_resources.get_distribution(
-            'directory-forms-api-client'
-        ).version
+        assert APIFormsClient.version == pkg_resources.get_distribution('directory-forms-api-client').version
 
     # API V2
     @stub_request('https://forms.com/api/v2/gov-notify-bulk-email/', 'post')

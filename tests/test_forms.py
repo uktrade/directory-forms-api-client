@@ -22,10 +22,7 @@ def spam_control():
 
 @pytest.fixture
 def sender():
-    return helpers.Sender(
-        email_address='test@example.com',
-        country_code='UK'
-    )
+    return helpers.Sender(email_address='test@example.com', country_code='UK')
 
 
 @pytest.fixture
@@ -43,13 +40,8 @@ def test_zendesk_action_form():
     assert forms.ZendeskActionMixin.action_class is expected_class
 
 
-@pytest.mark.parametrize('classes', (
-    [forms.EmailActionMixin, Form],
-    [forms.EmailAPIForm]
-))
-def test_email_action_mixin_user_submitted_email(
-    classes, mock_action_class, spam_control, form_session, sender
-):
+@pytest.mark.parametrize('classes', ([forms.EmailActionMixin, Form], [forms.EmailAPIForm]))
+def test_email_action_mixin_user_submitted_email(classes, mock_action_class, spam_control, form_session, sender):
     class TestForm(*classes):
         action_class = mock_action_class
 
@@ -90,18 +82,11 @@ def test_email_action_mixin_user_submitted_email(
         sender=sender,
     )
     assert mock_action_class().save.call_count == 1
-    assert mock_action_class().save.call_args == mock.call(
-        form.serialized_data
-    )
+    assert mock_action_class().save.call_args == mock.call(form.serialized_data)
 
 
-@pytest.mark.parametrize('classes', (
-    [forms.EmailActionMixin, Form],
-    [forms.EmailAPIForm]
-))
-def test_email_action_mixin_environment_defined_email(
-    classes, mock_action_class, form_session, spam_control, sender
-):
+@pytest.mark.parametrize('classes', ([forms.EmailActionMixin, Form], [forms.EmailAPIForm]))
+def test_email_action_mixin_environment_defined_email(classes, mock_action_class, form_session, spam_control, sender):
 
     class TestForm(*classes):
         action_class = mock_action_class
@@ -142,18 +127,11 @@ def test_email_action_mixin_environment_defined_email(
         sender=sender,
     )
     assert mock_action_class().save.call_count == 1
-    assert mock_action_class().save.call_args == mock.call(
-        form.serialized_data
-    )
+    assert mock_action_class().save.call_args == mock.call(form.serialized_data)
 
 
-@pytest.mark.parametrize('classes', (
-    [forms.ZendeskActionMixin, Form],
-    [forms.ZendeskAPIForm]
-))
-def test_zendesk_action_mixin(
-    classes, mock_action_class, form_session, spam_control, sender
-):
+@pytest.mark.parametrize('classes', ([forms.ZendeskActionMixin, Form], [forms.ZendeskAPIForm]))
+def test_zendesk_action_mixin(classes, mock_action_class, form_session, spam_control, sender):
 
     class TestForm(*classes):
         action_class = mock_action_class
@@ -196,10 +174,7 @@ def test_zendesk_action_mixin(
     assert mock_action_class().save.call_args == mock.call(form.cleaned_data)
 
 
-@pytest.mark.parametrize('classes', (
-    [forms.EmailActionMixin, Form],
-    [forms.EmailAPIForm]
-))
+@pytest.mark.parametrize('classes', ([forms.EmailActionMixin, Form], [forms.EmailAPIForm]))
 def test_email_action_mixin_not_implemented(classes, mock_action_class):
 
     class TestForm(*classes):
@@ -216,12 +191,13 @@ def test_email_action_mixin_not_implemented(classes, mock_action_class):
         form.html_body()
 
 
-@pytest.mark.parametrize('classes', (
-    [forms.GovNotifyEmailActionMixin, Form],
-    [forms.GovNotifyEmailAPIForm]
-))
+@pytest.mark.parametrize('classes', ([forms.GovNotifyEmailActionMixin, Form], [forms.GovNotifyEmailAPIForm]))
 def test_gov_notify_email_action(
-    classes, mock_action_class, form_session, spam_control, sender,
+    classes,
+    mock_action_class,
+    form_session,
+    spam_control,
+    sender,
 ):
 
     class TestForm(*classes):
@@ -262,13 +238,8 @@ def test_gov_notify_email_action(
     assert mock_action_class().save.call_args == mock.call(form.cleaned_data)
 
 
-@pytest.mark.parametrize('classes', (
-    [forms.GovNotifyEmailActionMixin, Form],
-    [forms.GovNotifyEmailAPIForm]
-))
-def test_gov_notify_action_no_reply_to_id(
-    classes, mock_action_class, spam_control, form_session, sender
-):
+@pytest.mark.parametrize('classes', ([forms.GovNotifyEmailActionMixin, Form], [forms.GovNotifyEmailAPIForm]))
+def test_gov_notify_action_no_reply_to_id(classes, mock_action_class, spam_control, form_session, sender):
 
     class TestForm(*classes):
         action_class = mock_action_class
@@ -306,12 +277,13 @@ def test_gov_notify_action_no_reply_to_id(
     assert mock_action_class().save.call_args == mock.call(form.cleaned_data)
 
 
-@pytest.mark.parametrize('classes', (
-    [forms.GovNotifyBulkEmailActionMixin, Form],
-    [forms.GovNotifyBulkEmailAPIForm]
-))
+@pytest.mark.parametrize('classes', ([forms.GovNotifyBulkEmailActionMixin, Form], [forms.GovNotifyBulkEmailAPIForm]))
 def test_gov_notify_bulk_email_action(
-    classes, mock_action_class, form_session, spam_control, sender,
+    classes,
+    mock_action_class,
+    form_session,
+    spam_control,
+    sender,
 ):
 
     class TestForm(*classes):
@@ -323,7 +295,7 @@ def test_gov_notify_bulk_email_action(
         'bulk_email_entries': [
             {'name': 'one', 'email_address': 'one@example.com'},
             {'name': 'two', 'email_address': 'two@example.com'},
-            {'name': 'three', 'email_address': 'three@example.com'}
+            {'name': 'three', 'email_address': 'three@example.com'},
         ],
         'template_id': '123456',
         'title': 'some title',
@@ -356,13 +328,8 @@ def test_gov_notify_bulk_email_action(
     assert mock_action_class().save.call_args == mock.call(form.cleaned_data)
 
 
-@pytest.mark.parametrize('classes', (
-    [forms.PardotActionMixin, Form],
-    [forms.PardotAPIForm]
-))
-def test_pardot_action(
-    classes, mock_action_class, form_session, spam_control, sender
-):
+@pytest.mark.parametrize('classes', ([forms.PardotActionMixin, Form], [forms.PardotAPIForm]))
+def test_pardot_action(classes, mock_action_class, form_session, spam_control, sender):
 
     class TestForm(*classes):
         action_class = mock_action_class
@@ -399,12 +366,13 @@ def test_pardot_action(
     assert mock_action_class().save.call_args == mock.call(form.cleaned_data)
 
 
-@pytest.mark.parametrize('classes', (
-    [forms.GovNotifyLetterActionMixin, Form],
-    [forms.GovNotifyLetterAPIForm]
-))
+@pytest.mark.parametrize('classes', ([forms.GovNotifyLetterActionMixin, Form], [forms.GovNotifyLetterAPIForm]))
 def test_gov_notify_letter_action(
-    classes, mock_action_class, form_session, spam_control, sender,
+    classes,
+    mock_action_class,
+    form_session,
+    spam_control,
+    sender,
 ):
 
     class TestForm(*classes):
@@ -437,12 +405,13 @@ def test_gov_notify_letter_action(
     assert mock_action_class().save.call_args == mock.call(form.cleaned_data)
 
 
-@pytest.mark.parametrize('classes', (
-    [forms.HCSatActionMixin, Form],
-    [forms.HCSatAPIForm]
-))
+@pytest.mark.parametrize('classes', ([forms.HCSatActionMixin, Form], [forms.HCSatAPIForm]))
 def test_hcsat_submission_action(
-    classes, mock_action_class, form_session, spam_control, sender,
+    classes,
+    mock_action_class,
+    form_session,
+    spam_control,
+    sender,
 ):
 
     experienced_issues_choices = (
@@ -461,9 +430,7 @@ def test_hcsat_submission_action(
         URL = fields.CharField()
         user_journey = fields.CharField()
         satisfaction_rating = fields.CharField()
-        experienced_issues = ArrayField(
-            fields.CharField(max_length=255), size=6, default=list, null=True
-        )
+        experienced_issues = ArrayField(fields.CharField(max_length=255), size=6, default=list, null=True)
         other_detail = fields.CharField()
         service_improvements_feedback = fields.CharField()
         likelihood_of_return = fields.CharField()
@@ -486,9 +453,11 @@ def test_hcsat_submission_action(
         'service_improvements_feedback': 'Its Perfect',
         'likelihood_of_return': 'Extremely likely',
         'service_name': 'export-academy',
-        'service_specific_feedback': ['None', ],
+        'service_specific_feedback': [
+            'None',
+        ],
         'service_specific_feedback_other': 'Nothing',
-        }
+    }
 
     form = TestForm(data)
     assert form.is_valid()
@@ -502,6 +471,45 @@ def test_hcsat_submission_action(
 
     assert mock_action_class.call_count == 1
     assert mock_action_class.call_args == mock.call(
+        form_url='/the/form/',
+        form_session=form_session,
+        spam_control=spam_control,
+        sender=sender,
+    )
+    assert mock_action_class().save.call_count == 1
+    assert mock_action_class().save.call_args == mock.call(form.cleaned_data)
+
+
+@pytest.mark.parametrize('classes', ([forms.UnverifiedReminderActionMixin, Form], [forms.UnverifiedRemindersAPIForm]))
+def test_unverified_reminders_action(
+    classes,
+    mock_action_class,
+    form_session,
+    spam_control,
+    sender,
+):
+
+    class TestForm(*classes):
+        action_class = mock_action_class
+
+    data = {
+        'template_id': '123456',
+    }
+
+    form = TestForm(data)
+    assert form.is_valid()
+
+    form.save(
+        template_id=data['template_id'],
+        form_url='/the/form/',
+        form_session=form_session,
+        spam_control=spam_control,
+        sender=sender,
+    )
+
+    assert mock_action_class.call_count == 1
+    assert mock_action_class.call_args == mock.call(
+        template_id=data['template_id'],
         form_url='/the/form/',
         form_session=form_session,
         spam_control=spam_control,
