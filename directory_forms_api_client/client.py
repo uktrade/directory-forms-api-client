@@ -13,7 +13,7 @@ class APIFormsClient(AbstractAPIClient):
         # API V2 endpoints
         'gov_notify_bulk_email': 'api/v2/gov-notify-bulk-email/',
         'hcsat_feedback_submission': 'api/v2/hcsat-feedback-submission/',
-        'verification_reminders': 'api/v2/verification-reminders',
+        'verification_reminders': 'api/v2/verification-reminders/',
     }
     version = pkg_resources.get_distribution(__package__).version
 
