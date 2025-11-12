@@ -508,7 +508,7 @@ def test_unverified_reminder_action_mixin_action_class(
     )
     dtm = datetime.now()
     data = {
-        'email': 'test@test.com',
+        'email_address': 'test@test.com',
         'deletion_date': dtm,
     }
     action.save(data)
