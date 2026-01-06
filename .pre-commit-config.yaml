@@ -1,0 +1,22 @@
+repos:
+  - repo: https://github.com/uktrade/github-standards
+    rev: v1.2.1 # This should be the latest github released tag, see https://github.com/uktrade/github-standards/releases for the latest tag
+    hooks:
+      - id: validate-security-scan
+        verbose: true # This is helpful for debugging initial setup, it can be removed when the hooks are verified as working in your repository
+        args: [-v] # This is helpful for debugging the hook logic, the output is shown in the git output
+      - id: run-security-scan
+        verbose: true
+        args: [--verbose]
+  - repo: https://github.com/psf/black
+    rev: 23.1.0
+    hooks:
+      - id: black
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
