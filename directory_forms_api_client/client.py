@@ -1,4 +1,4 @@
-from bg_profile_client import __version__
+from directory_forms_api_client import __version__
 from directory_client_core.base import AbstractAPIClient
 from django.conf import settings
 
