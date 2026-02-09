@@ -1,4 +1,4 @@
-import pkg_resources
+from bg_profile_client import __version__
 from directory_client_core.base import AbstractAPIClient
 from django.conf import settings
 
@@ -15,7 +15,7 @@ class APIFormsClient(AbstractAPIClient):
         'hcsat_feedback_submission': 'api/v2/hcsat-feedback-submission/',
         'verification_reminders': 'api/v2/verification-reminders/',
     }
-    version = pkg_resources.get_distribution(__package__).version
+    version = __version__
 
     # API V1
     def ping(self, authenticator=None):

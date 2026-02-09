@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-import pkg_resources
+from directory_forms_api_client import __version__
 
 from directory_forms_api_client.client import APIFormsClient
 from tests import basic_authenticator, stub_request
@@ -59,7 +59,7 @@ class APIFormsClientTest(TestCase):
         assert self.client.request_signer.sender_id == 'test'
 
     def test_version(self):
-        assert APIFormsClient.version == pkg_resources.get_distribution('directory-forms-api-client').version
+        assert APIFormsClient.version == __version__
 
     # API V2
     @stub_request('https://forms.com/api/v2/gov-notify-bulk-email/', 'post')
