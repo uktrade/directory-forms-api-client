@@ -64,7 +64,7 @@ REQUIRED_SETTINGS = (
 
 def _get_required_setting(name: str):  # pragma: no cover
     if not hasattr(settings, name):
-        raise ImproperlyConfigured(f'Missing required setting for BG Profile client: {name}')
+        raise ImproperlyConfigured(f'Missing required setting for Forms API client: {name}')
     return getattr(settings, name)
 
 
