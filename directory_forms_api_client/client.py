@@ -61,10 +61,12 @@ REQUIRED_SETTINGS = (
     'DIRECTORY_FORMS_API_SENDER_ID',
 )
 
+
 def _get_required_setting(name: str):
     if not hasattr(settings, name):
         raise ImproperlyConfigured(f'Missing required setting for BG Profile client: {name}')
     return getattr(settings, name)
+
 
 def get_forms_api_client() -> APIFormsClient:
     """
