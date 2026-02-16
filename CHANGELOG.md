@@ -1,4 +1,8 @@
 # Changelog
+
+## [7.5.6](https://pypi.org/project/directory-forms-api-client/7.5.3/) (2026-02-16)
+[Full Changelog](http://github.com/uktrade/directory-forms-api-client/pull/59)
+- PLOPS-3455 - Added new get_forms_api_client function
 ## [7.5.3](https://pypi.org/project/directory-forms-api-client/7.5.3/) (2025-11-12)
 [Full Changelog](http://github.com/uktrade/directory-forms-api-client/pull/54)
 - PLOPS-3030 Added Verificaiton Reminder action and endpoint

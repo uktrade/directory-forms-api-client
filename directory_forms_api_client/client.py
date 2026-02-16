@@ -1,6 +1,7 @@
 from directory_forms_api_client import __version__
 from directory_client_core.base import AbstractAPIClient
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 
 
 class APIFormsClient(AbstractAPIClient):
@@ -53,3 +54,34 @@ forms_api_client = APIFormsClient(
     sender_id=settings.DIRECTORY_FORMS_API_SENDER_ID,
     timeout=settings.DIRECTORY_FORMS_API_DEFAULT_TIMEOUT,
 )
+
+REQUIRED_SETTINGS = (
+    'DIRECTORY_FORMS_API_BASE_URL',
+    'DIRECTORY_FORMS_API_API_KEY',
+    'DIRECTORY_FORMS_API_SENDER_ID',
+)
+
+
+def _get_required_setting(name: str):  # pragma: no cover
+    if not hasattr(settings, name):
+        raise ImproperlyConfigured(f'Missing required setting for BG Profile client: {name}')
+    return getattr(settings, name)
+
+
+def get_forms_api_client() -> APIFormsClient:  # pragma: no cover
+    """
+    Factory function to avoid import-time failures and
+    make testing easier.
+    """
+    # Validate required settings explicitly
+    base_url = _get_required_setting('BG_PROFILE_BASE_URL')
+    api_key = _get_required_setting('BG_PROFILE_API_KEY')
+    sender_id = _get_required_setting('BG_PROFILE_SENDER_ID')
+    timeout = getattr(settings, 'BG_PROFILE_DEFAULT_TIMEOUT', 10)
+
+    return APIFormsClient(
+        base_url=base_url,
+        api_key=api_key,
+        sender_id=sender_id,
+        timeout=timeout,
+    )
