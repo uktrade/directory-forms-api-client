@@ -64,7 +64,7 @@ REQUIRED_SETTINGS = (
 
 def _get_required_setting(name: str):  # pragma: no cover
     if not hasattr(settings, name):
-        raise ImproperlyConfigured(f'Missing required setting for BG Profile client: {name}')
+        raise ImproperlyConfigured(f'Missing required setting for Forms API client: {name}')
     return getattr(settings, name)
 
 
@@ -74,10 +74,10 @@ def get_forms_api_client() -> APIFormsClient:  # pragma: no cover
     make testing easier.
     """
     # Validate required settings explicitly
-    base_url = _get_required_setting('BG_PROFILE_BASE_URL')
-    api_key = _get_required_setting('BG_PROFILE_API_KEY')
-    sender_id = _get_required_setting('BG_PROFILE_SENDER_ID')
-    timeout = getattr(settings, 'BG_PROFILE_DEFAULT_TIMEOUT', 10)
+    base_url = _get_required_setting('DIRECTORY_FORMS_API_BASE_URL')
+    api_key = _get_required_setting('DIRECTORY_FORMS_API_API_KEY')
+    sender_id = _get_required_setting('DIRECTORY_FORMS_API_SENDER_ID')
+    timeout = getattr(settings, 'DIRECTORY_FORMS_API_DEFAULT_TIMEOUT', 10)
 
     return APIFormsClient(
         base_url=base_url,
