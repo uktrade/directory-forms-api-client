@@ -62,13 +62,13 @@ REQUIRED_SETTINGS = (
 )
 
 
-def _get_required_setting(name: str):
+def _get_required_setting(name: str):  # pragma: no cover
     if not hasattr(settings, name):
         raise ImproperlyConfigured(f'Missing required setting for BG Profile client: {name}')
     return getattr(settings, name)
 
 
-def get_forms_api_client() -> APIFormsClient:
+def get_forms_api_client() -> APIFormsClient:  # pragma: no cover
     """
     Factory function to avoid import-time failures and
     make testing easier.
